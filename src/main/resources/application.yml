@@ -1,8 +1,8 @@
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
+  #mvc:
+   # view:
+    #  prefix: /WEB-INF/jsp/
+     # suffix: .jsp
       
   datasource:
     url:  jdbc:mysql://localhost:3306/devroutinergram
