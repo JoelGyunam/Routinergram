@@ -15,7 +15,7 @@ public class Hello {
 	
 	@GetMapping("/hello/jsp")
 	public String helloJsp() {
-		return "/WEB-INF/jsp/hello/hello.jsp";
+		return "hello/hello";
 	}
 	
 }
