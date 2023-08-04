@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+#wrap {
+	width: 360px;
+	min-height: 100vh;
+	margin:auto;
+	font-family: SUITE Variable;
+	background: #ffffff;
+}
+
+header{
+	width: 360px;
+	height: 57px;
+	position: relative;
+	color: white;
+	font-size: 22px;
+	font-family: SUITE Variable;
+	font-weight: 900;  
+	line-height: 24px;
+	letter-spacing: 2px;
+	word-wrap: break-word;
+	border-radius: 0px 0px 12px 12px;
+	background: #155724;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+}
+
+section{
+		min-height: auto;
+}
+
+select option[value="nonselect"] {
+	display: none;
+}
+
+.btn-transparent{
+	background-color: transparent;
+}
+
+#greetingBtn{
+	position: fixed;
+	bottom: 10px;
+	width: 360px;
+}
+
+#bottomNav{
+	width: 360px;
+	position: fixed;
+	bottom: 0;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+}
+
+.bottomNavBtn{
+	width:120px;
+	display: flex; /* Added to enable flexbox layout */
+  	flex-direction: column;
+  	justify-content: center;
+  	align-items: center;
+
+}
+
+.bottomNavText{
+	text-align: center;
+	color: white; 
+	font-size: 12px; 
+	font-family: SUITE Variable; 
+	font-weight: 400; 
+	line-height: 15px; 
+	letter-spacing: 2px; 
+	word-wrap: break-word;
+	margin-bottom: 5px;
+}
+
+.bottomNavImg{
+	margin-top: 8px;
+	height: 20px;
+	width: 20px;
+	justify-content: center;
+	align-items: center; 
+	display: inline-flex;
+}
+
+footer{
+	bottom:0;
+}
