@@ -47,6 +47,10 @@
 	<script>
 		$(document).ready(function(){
 			
+			if(${UID }==""){
+				location.href="/main/login";
+			};
+			
 			$("#startBtn").on("click",function(){
 				location.href="/main/feed";
 			});

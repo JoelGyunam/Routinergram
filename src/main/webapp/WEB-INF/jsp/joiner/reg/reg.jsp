@@ -18,18 +18,18 @@
 	
 	<section class="bg-white">
 		<div class="container">
-			<h1 class="p-3">회원가입</h1>
+			<h1 class="p-1">회원가입</h1>
+			<hr>
 			<div>
 				<label>이메일을 입력해 주세요</label>
 				<div class="d-flex align-items-center">
 					<input id="email" type="text" class="form-control">
 					<div id="atSymbol" class="ml-1">@</div>
-					<select id="emailSelect" class="form-control col-5 ml-1">
-						<option value="nonselect" selected>이메일 선택</option>
+					<select id="emailSelect" class="form-control col-4 text-center ml-1">
+						<option value="manual" selected>직접 입력</option>
 						<option value="@gmail.com">gmail.com</option>
 						<option value="@naver.com">naver.com</option>
 						<option value="@kakao.com">kakao.com</option>
-						<option value="manual">직접 입력</option>
 					</select>
 				</div>
 				<div id="emailValidAlert" class="small text-danger">잘못된 이메일 형식입니다.</div>
@@ -39,6 +39,7 @@
 				<label>비밀번호를 설정해 주세요</label>
 				<input id="password" type="password" class="form-control" maxlength="16">
 				<div class="small text-dark">8 ~ 16자의 대소문자, 숫자, 특수문자로 조합할 수 있어요.</div>
+				<div id="passwordRegAlert" class="small text-danger">비밀번호 형식을 확인해 주세요</div>
 			</div>
 			<div class="mt-2">
 				<label>비밀번호를 한번 더 입력해 주세요</label>
@@ -48,7 +49,10 @@
 			</div>
 			<div class="mt-2">
 				<label>닉네임을 입력해 주세요</label>
-				<input id="nickname" type="text" class="form-control" maxlength="16">
+				<div class="d-flex align-items-center">
+					<input id="nickname" type="text" class="form-control" maxlength="16">
+					<button id="nicknameDupCheckBtn" class="btn btn-primary  ml-1">중복 확인</button>
+				</div>
 				<div id="nicknameDupCheckAlert" class="small text-danger">이미 사용중인 닉네임이에요.</div>
 				<div class="small text-dark">한글, 영문, 숫자를 최대 16자 까지 입력할 수 있어요.</div>
 			</div>
@@ -65,7 +69,8 @@
 				<div class="small text-gray">가입 후에도 언제든지 수정 가능해요.</div>
 			</div>
 		</div>
-			<button id="regSubmitBtn" class="btn col-9 btn-dark my-5 mx-auto d-block text-center">완료하기</button>
+			<hr>
+			<button id="regSubmitBtn" class="btn col-9 btn-dark my-4 mx-auto d-block text-center">완료하기</button>
 	</section>
 	
 	<jsp:include page="/WEB-INF/jsp/gnb/bottomNav.jsp"/>
@@ -82,16 +87,20 @@
 	<script>
 		$(document).ready(function(){
 			var emailValue = "";
+			var nicknameDupCheck = false;
+			var nickid = "";
+			
 			$("#passwordValidSuccessAlert").hide();
 			$("#passwordValidFailAlert").hide();
 			$("#emailValidAlert").hide();
 			$("#emailDupCheckAlert").hide();
 			$("#nicknameDupCheckAlert").hide();
+			$("#atSymbol").hide();
+			$("#passwordRegAlert").hide();
 			
 			
 	        function IsEmail(emailValue) {
-	            var regex =
-	/^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	            if (!regex.test(emailValue)) {
 	                return false;
 	            }
@@ -99,6 +108,17 @@
 	                return true;
 	            }
 	        };
+	        
+	        function pwRegCheck(password) {
+	        	var regex = /^[A-Za-z\d@$!%*?&]{8,16}$/;
+				if (!regex.test(password)){
+					return false;
+				}
+				else {
+					return true;
+				}
+	        };
+	        
 	        
 	        $("#email").on("keyup",function(){
 	        	var emailSelect = $("#emailSelect").val();
@@ -123,6 +143,11 @@
 				else{
 					$("#passwordValidFailAlert").hide();
 					$("#passwordValidSuccessAlert").show();
+				}
+				if(pwRegCheck(password)){
+					$("#passwordRegAlert").hide();
+				} else{
+					$("#passwordRegAlert").show();
 				}
 			});
 			
@@ -153,7 +178,38 @@
 	        	} else $("#emailValidAlert").hide();
 			});
 			
+			$("#nicknameDupCheckBtn").on("click",function(){
+				
+				var nickname = $("#nickname").val()
+				nicknameDupCheck = false;
+				$("#nicknameDupCheckBtn").prop('disabled',false);
 
+				if(nickname != ""){
+					$.ajax({
+						type:"get"
+						,url:"/reg/submit/if-nickname-duplicated"
+						,data:{
+							"nickname":nickname
+						}
+						,success:function(data){
+							if(data.isDuplicated == "false"){
+								alert("사용 가능한 닉네임입니다.");
+								nicknameDupCheck = true;
+								nickid = $(data.NickID);
+								$("#nicknameDupCheckAlert").hide();
+
+							} else{
+								alert("이미 사용중인 닉네임입니다.\다른 닉네임을 사용해 주세요");
+								$("#nicknameDupCheckAlert").show();
+								}
+							}
+						,error:function(){
+							alert("닉네임 중복확인에 실패했습니다.\n다시 시도해 주세요.");
+						}
+					})
+				}
+			});
+			
 			
 			$("#regSubmitBtn").on("click",function(){
 
@@ -164,7 +220,7 @@
 				var nickname = $("#nickname").val();
 				var interest = $("#interest").val();
 				
-				if(emailSelect=="nonselect" || email==""){
+				if(email==""){
 					alert("이메일을 입력해 주세요.");
 					return;
 				}
@@ -185,6 +241,10 @@
 					alert("닉네임을 입력해 주세요.");
 					return;
 				}
+				if(nickid==""){
+					alert("닉네임 중복 확인을 해주세요.");
+					return;
+				}
 				if(interest=="nonselect"){
 					alert("목표루틴을 입력해 주세요.");
 					return;
@@ -196,7 +256,7 @@
 					,data:{
 						"email":emailValue
 						,"password":password
-						,"nickname":nickname
+						,"NicknameID":nickid
 						,"ITRID":interest
 					}
 					,success:function(data){

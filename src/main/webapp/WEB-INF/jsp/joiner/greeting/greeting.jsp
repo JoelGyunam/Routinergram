@@ -15,26 +15,25 @@
 
 	<jsp:include page="/WEB-INF/jsp/gnb/header.jsp"/>
 	
-	<section class="bg-white">
-		<div class="mt-5">
-			<div class="text-center mt-5">
-				<div>루티너그램은 자기관리를 행동으로 실천하는</div>
+	<section class="bg-white container d-flex align-items-center justify-content-center">
+		<div>
+			<div class="text-center">
+				<div><b>루티너그램</b>은 자기관리를 행동으로 실천하는</div>
 				<div>루티너를 위해 태어났어요!</div>
 				<br>
 				<div>이제 루티너그램에서 목표를 설정하고,</div>
-				<div>나의 목표와 행동을 공유할 수 있어요!</div>
+				<div>나의 <b>목표와 행동을 공유</b>할 수 있어요!</div>
 				<br>
-				<div>내일보다 더 발전된 내 모습을</div>
-				<div>함께 공유해 볼까요?</div>
+				<div class="font-weight-bold">내일보다 더 발전된 내 모습을</div>
+				<div class="font-weight-bold">함께 공유해 볼까요?</div>
 			</div>
 		</div>
 			<button id="greetingBtn" class="btn col-9 btn-primary my-5 mx-auto d-block text-center">루티너그램 시작하기</button>
 	</section>
 	
-
-
 </div>
 
+		<jsp:include page="/WEB-INF/jsp/gnb/footer.jsp"/>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
