@@ -5,7 +5,7 @@
  
  <mapper namespace = "com.routinergram.user.repository.UserNicknameRepository">
 
- 	 <select id = "nicknameSelect" parameterType="map" resultType="int">
+ 	 <select id = "nicknameCount" parameterType="map" resultType="int">
  		SELECT COUNT(1) 
  			FROM usernickname
  			WHERE nickname = #{nickname}
@@ -24,5 +24,11 @@
 	 		SET `UID` = #{UID}
  			WHERE `NickID` = #{NickID}
  	</update>
+ 	
+ 	<select id="selectNicknameByNickID" parameterType="map" resultType="String">
+ 		SELECT `nickname`
+ 		FROM `usernickname`
+ 		WHERE NickID = #{NickID}
+ 	</select>
  	
  </mapper>

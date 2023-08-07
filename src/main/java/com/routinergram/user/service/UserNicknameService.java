@@ -13,7 +13,7 @@ public class UserNicknameService {
 	private UserNicknameRepository userNicknameRepository;
 	
 	public int countNickname(String nickname) {
-		return  userNicknameRepository.nicknameSelect(nickname);
+		return  userNicknameRepository.nicknameCount(nickname);
 	}
 	
 	public int addNickname(UserNickname userNickname) {
@@ -24,4 +24,7 @@ public class UserNicknameService {
 		return userNicknameRepository.updateNickname(userNickname);
 	}
 	
+	public String getUserNicknameByNickID(int NickID) {
+		return userNicknameRepository.selectNicknameByNickID(NickID);
+	}
 }

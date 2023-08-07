@@ -8,10 +8,12 @@ import com.routinergram.user.domain.UserNickname;
 @Repository
 public interface UserNicknameRepository {
 
-	public int nicknameSelect(@Param("nickname") String nickname);
+	public int nicknameCount(@Param("nickname") String nickname);
 	
 	public int insertNickname(UserNickname userNickname);
 	
 	public int updateNickname(UserNickname userNickname);
+	
+	public String selectNicknameByNickID(int NickID);
 	
 }

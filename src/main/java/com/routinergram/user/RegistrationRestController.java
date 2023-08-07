@@ -105,8 +105,12 @@ public class RegistrationRestController {
 			
 			HttpSession session = request.getSession();
 			
+			String nickname = userNicknameService.getUserNicknameByNickID(NickID);
+			
 			session.setAttribute("UID", userinfo.getUID());
-			session.setAttribute("nickname", userinfo.getNickID());
+			session.setAttribute("NickID", userinfo.getNickID());
+			session.setAttribute("nickname", nickname);
+			
 			
 			resultMap.put("result","success");
 			resultMap.put("UID", userinfo.getUID());

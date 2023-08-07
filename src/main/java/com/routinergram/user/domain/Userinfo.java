@@ -6,6 +6,7 @@ public class Userinfo {
 
 	private int UID;
 	private String email;
+	private String salt;
 	private String password;
 	private int NickID;
 	private int ITRID;
@@ -26,6 +27,12 @@ public class Userinfo {
 	}
 	public String getPassword() {
 		return password;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 	public void setPassword(String password) {
 		this.password = password;

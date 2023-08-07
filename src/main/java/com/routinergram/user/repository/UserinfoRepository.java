@@ -14,4 +14,5 @@ public interface UserinfoRepository {
 	
 	public int countEmail(Userinfo userinfo);
 	
+	public String selectSalt(@Param("email") String email);
 }

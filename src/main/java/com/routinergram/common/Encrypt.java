@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 
 public class Encrypt {
 
-	public static String getSalt() {
+	public String getSalt() {
 		SecureRandom sr = new SecureRandom();
 		byte[] salt = new byte[20];
 		

@@ -13,9 +13,10 @@
  	
  	<insert id = "insertUserinfo" parameterType = "map" useGeneratedKeys="true" keyProperty="UID">
  		INSERT INTO `userinfo`
- 			(`email`,`password`,`NickID`,`ITRID`)
+ 			(`email`,`salt`,`password`,`NickID`,`ITRID`)
  		VALUE(
  			#{email}
+ 			,#{salt}
  			,#{password}
  			,#{NickID}
  			,#{ITRID}
@@ -29,5 +30,13 @@
 			`email`= #{email} 
 			AND `password` = #{password}
  	</select>
+ 	
+ 	<select id = "selectSalt" parameterType="map" resultType="String">
+ 		SELECT `salt`
+ 		FROM `userinfo`
+ 		WHERE
+ 			`email`= #{email}
+ 	</select>
+ 	
  	
  </mapper>

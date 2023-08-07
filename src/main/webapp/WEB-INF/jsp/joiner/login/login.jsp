@@ -18,27 +18,27 @@
 	<section class="bg-white container d-flex align-items-center justify-content-center">
 		<div class="container">
 			<div>
-				<div class="mt-2">
-					<label><b>이메일 주소</b></label>
-					<div class="d-flex align-items-center">
-						<input id="email" type="text" class="form-control">
-						<div id="atSymbol" class="ml-1">@</div>
-						<select id="emailSelect" class="form-control col-5 ml-1">
-							<option value="manual" selected>직접 입력</option>
-							<option value="@gmail.com">gmail.com</option>
-							<option value="@naver.com">naver.com</option>
-							<option value="@kakao.com">kakao.com</option>
-						</select>
+				<form id="loginForm">
+					<div class="mt-2">
+						<label><b>이메일 주소</b></label>
+						<div class="d-flex align-items-center">
+							<input id="email" type="text" class="form-control">
+							<div id="atSymbol" class="ml-1">@</div>
+							<select id="emailSelect" class="form-control col-5 ml-1">
+								<option value="manual" selected>직접 입력</option>
+								<option value="@gmail.com">gmail.com</option>
+								<option value="@naver.com">naver.com</option>
+								<option value="@kakao.com">kakao.com</option>
+							</select>
+						</div>
+						<div id="emailValidAlert" class="small text-danger">잘못된 이메일 형식입니다.</div>
 					</div>
-					<div id="emailValidAlert" class="small text-danger">잘못된 이메일 형식입니다.</div>
-					
-					
-				</div>
-				<div class="mt-2">
-					<label><b>비밀번호</b></label>
-					<input id="password" type="password" class="form-control">
-				</div>
-				<button id="loginBtn" type="button" class="btn btn-success btn-block text-white mt-3">로그인</button>
+					<div class="mt-2">
+						<label><b>비밀번호</b></label>
+						<input id="password" type="password" class="form-control">
+					</div>
+					<button id="loginBtn" type="submit" class="btn btn-success btn-block text-white mt-3">로그인</button>
+				</form>
 				<div class="text-right small mt-2">비밀번호 찾기</div>
 			</div>
 			
@@ -111,7 +111,9 @@
 			});
 			
 			
-			$("#loginBtn").on("click",function(){
+			$("#loginForm").on("submit",function(e){
+				
+				e.preventDefault();
 				
 				var email = $("#email").val();
 				var emailSelect = $("#emailSelect").val();

@@ -1,7 +1,5 @@
 package com.routinergram.user.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +15,20 @@ public class UserinfoService {
 	
 	public int registrationRequest(Userinfo userinfo) {
 		
-		String salt = Encrypt.getSalt();
+		Encrypt encrypt = new Encrypt();
+		String salt = encrypt.getSalt();
 		String encPassword = Encrypt.getEncrypt(userinfo.getPassword(),salt);
 		
+		userinfo.setSalt(salt);
 		userinfo.setPassword(encPassword);
 		
 		return userinfoRepository.insertUserinfo(userinfo);
 	}
 	
 	public Userinfo loginRequest(Userinfo userinfo) {
-		String salt = Encrypt.getSalt();
-		String encPassword = Encrypt.getEncrypt(userinfo.getPassword(),salt);
+		
+		String getSalt = userinfoRepository.selectSalt(userinfo.getEmail());
+		String encPassword = Encrypt.getEncrypt(userinfo.getPassword(),getSalt);
 		
 		userinfo.setPassword(encPassword);
 		
