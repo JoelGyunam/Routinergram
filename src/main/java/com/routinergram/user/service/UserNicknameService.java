@@ -20,4 +20,8 @@ public class UserNicknameService {
 		return userNicknameRepository.insertNickname(userNickname);
 	}
 	
+	public int setNickname(UserNickname userNickname) {
+		return userNicknameRepository.updateNickname(userNickname);
+	}
+	
 }

@@ -15,17 +15,16 @@
 
 	<jsp:include page="/WEB-INF/jsp/gnb/header.jsp"/>
 	
-	<section class="bg-white">
-		<h1 class="text-center">환영합니다!</h1>
+	<section class="bg-white container">
+		<h1 class="text-center p-3">환영합니다!</h1>
 		
-		<h3 class="p-3">안녕하세요 ${nickname } 님,</h3>
+		<h3 class="">안녕하세요 ${nickname } 님,</h3>
 	
-		<div class="mt-5">
-			<div class="text-center mt-5">
-				<div>시작이 반이다!</div>
-				<br>
+		<div class="mt-3">
+			<div class="text-center mt-3">
 				<div class="text-dark">루티너그램에서는 내가 루틴을 실천하는 대로</div>
 				<div class="text-dark">루틴 점수를 받을 수 있어요.</div>
+				<div class="mt-3 font-weight-bold">시작이 반이다!</div>
 				<br>
 				<div class="font-weight-bold">시작 축하 점수로 50점을 획득했어요!</div>
 				<div>이제 다른 루티너들과 함께</div>

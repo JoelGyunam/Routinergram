@@ -12,4 +12,6 @@ public interface UserinfoRepository {
 	
 	public Userinfo loginSelect(Userinfo userinfo);
 	
+	public int countEmail(Userinfo userinfo);
+	
 }

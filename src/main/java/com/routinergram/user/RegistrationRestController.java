@@ -28,7 +28,43 @@ public class RegistrationRestController {
 	@Autowired
 	private UserNicknameService userNicknameService;
 	
-	@GetMapping("/submit/if-nickname-duplicated")
+	@PostMapping("/submit/if-email-duplicated")
+	public Map<String, Boolean> ifDuplicatedEmail(@RequestParam("email") String email){
+		Userinfo userinfo = new Userinfo();
+		userinfo.setEmail(email);
+		int result = userinfoService.emailDupCheck(userinfo);
+		
+		Map<String,Boolean> resultMap = new HashMap<>();
+		if(result == 0) {
+			resultMap.put("isDuplicated",false);
+		} else {
+			resultMap.put("isDuplicated",true);
+		}
+		return resultMap;
+	}
+	
+	@PostMapping("/submit/set-nickname")
+	public Map<String, String> setNickname(
+			@RequestParam("NickID") int NickID
+			, @RequestParam("UID") int UID
+			)
+	{
+		UserNickname userNickname = new UserNickname();
+		userNickname.setNickID(NickID);
+		userNickname.setUID(UID);
+		int result = userNicknameService.setNickname(userNickname);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(result == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	
+	@PostMapping("/submit/if-nickname-duplicated")
 	public Map<String, Object> ifNicknameDup(@RequestParam("nickname") String nickname){
 		int count = userNicknameService.countNickname(nickname);
 		Map<String,Object> resultMap = new HashMap<>();
@@ -46,10 +82,10 @@ public class RegistrationRestController {
 	}
 	
 	@PostMapping("/submit")
-	public Map<String,String> registration(
+	public Map<String,Object> registration(
 			@RequestParam("email") String email
 			, @RequestParam("password") String password
-			, @RequestParam("NicknameID") int NicknameID
+			, @RequestParam("NickID") int NickID
 			, @RequestParam("ITRID") int ITRID
 			, HttpServletRequest request
 			){
@@ -58,23 +94,22 @@ public class RegistrationRestController {
 		
 		userinfo.setEmail(email);
 		userinfo.setPassword(password);
-		userinfo.setNicknameID(NicknameID);
+		userinfo.setNickID(NickID);
 		userinfo.setITRID(ITRID);
-		
 		
 		int result = userinfoService.registrationRequest(userinfo);
 		
-		Map<String,String> resultMap = new HashMap<>();
+		Map<String,Object> resultMap = new HashMap<>();
 		
 		if(result == 1) {
 			
 			HttpSession session = request.getSession();
-
 			
 			session.setAttribute("UID", userinfo.getUID());
-			session.setAttribute("nickname", userinfo.getNicknameID());
+			session.setAttribute("nickname", userinfo.getNickID());
 			
 			resultMap.put("result","success");
+			resultMap.put("UID", userinfo.getUID());
 			return resultMap;
 		} else {
 			resultMap.put("result","fail");

@@ -4,19 +4,26 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace = "com.routinergram.user.repository.UserinfoRepository">
+ 	
+ 	<select id = "countEmail" parameterType="map" resultType="int">
+ 		SELECT COUNT(1) 
+ 			FROM userinfo
+ 			WHERE email = #{email}
+ 	</select>
+ 	
  	<insert id = "insertUserinfo" parameterType = "map" useGeneratedKeys="true" keyProperty="UID">
  		INSERT INTO `userinfo`
- 			(`email`,`password`,`nickname`,`ITRID`)
+ 			(`email`,`password`,`NickID`,`ITRID`)
  		VALUE(
  			#{email}
  			,#{password}
- 			,#{NicknameID}
+ 			,#{NickID}
  			,#{ITRID}
  		)
  	</insert>
  	
  	<select id = "loginSelect" parameterType="map" resultType="com.routinergram.user.domain.Userinfo">
- 		SELECT `UID`, `nickname`
+ 		SELECT `UID`
 		FROM `userinfo`
 		WHERE 
 			`email`= #{email} 

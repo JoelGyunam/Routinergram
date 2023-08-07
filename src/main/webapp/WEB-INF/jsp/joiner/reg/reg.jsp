@@ -16,8 +16,8 @@
 
 	<jsp:include page="/WEB-INF/jsp/gnb/headerBack.jsp"/>
 	
-	<section class="bg-white">
-		<div class="container">
+	<section class="bg-white container p-1">
+		<div>
 			<h1 class="p-1">회원가입</h1>
 			<hr>
 			<div>
@@ -73,7 +73,7 @@
 			<button id="regSubmitBtn" class="btn col-9 btn-dark my-4 mx-auto d-block text-center">완료하기</button>
 	</section>
 	
-	<jsp:include page="/WEB-INF/jsp/gnb/bottomNav.jsp"/>
+	<jsp:include page="/WEB-INF/jsp/gnb/footer.jsp"/>
 	
 
 
@@ -88,7 +88,7 @@
 		$(document).ready(function(){
 			var emailValue = "";
 			var nicknameDupCheck = false;
-			var nickid = "";
+			var NickID = "";
 			
 			$("#passwordValidSuccessAlert").hide();
 			$("#passwordValidFailAlert").hide();
@@ -182,11 +182,10 @@
 				
 				var nickname = $("#nickname").val()
 				nicknameDupCheck = false;
-				$("#nicknameDupCheckBtn").prop('disabled',false);
 
 				if(nickname != ""){
 					$.ajax({
-						type:"get"
+						type:"post"
 						,url:"/reg/submit/if-nickname-duplicated"
 						,data:{
 							"nickname":nickname
@@ -195,7 +194,7 @@
 							if(data.isDuplicated == "false"){
 								alert("사용 가능한 닉네임입니다.");
 								nicknameDupCheck = true;
-								nickid = $(data.NickID);
+								NickID = data.NickID;
 								$("#nicknameDupCheckAlert").hide();
 
 							} else{
@@ -210,7 +209,6 @@
 				}
 			});
 			
-			
 			$("#regSubmitBtn").on("click",function(){
 
 				var email = $("#email").val();
@@ -219,7 +217,7 @@
 				var passwordConfirm = $("#passwordConfirm").val();
 				var nickname = $("#nickname").val();
 				var interest = $("#interest").val();
-				
+
 				if(email==""){
 					alert("이메일을 입력해 주세요.");
 					return;
@@ -228,7 +226,6 @@
 					alert("잘못된 이메일 형식입니다.");
 					return;
 				}
-				
 				if(password==""){
 					alert("비밀번호를 입력해 주세요.");
 					return;
@@ -241,7 +238,7 @@
 					alert("닉네임을 입력해 주세요.");
 					return;
 				}
-				if(nickid==""){
+				if(NickID==""){
 					alert("닉네임 중복 확인을 해주세요.");
 					return;
 				}
@@ -252,22 +249,50 @@
 				
 				$.ajax({
 					type:"post"
-					,url:"/reg/submit"
+					,url:"/reg/submit/if-email-duplicated"
 					,data:{
 						"email":emailValue
-						,"password":password
-						,"NicknameID":nickid
-						,"ITRID":interest
 					}
 					,success:function(data){
-						if(data.result=="success"){
-							location.href="/reg/welcome";
-						} else{
-							alert("회원가입에 실패했어요. \n다시 시도해 주세요");
+						if(data.isDuplicated){
+							alert("이미 사용중인 이메일 입니다.");
+							$("#emailDupCheckAlert").show();
+							return;
+						} 
+						if(!data.isDuplicated){
+							$.ajax({
+								type:"post"
+								,url:"/reg/submit"
+								,data:{
+									"email":emailValue
+									,"password":password
+									,"NickID":NickID
+									,"ITRID":interest
+								}
+								,success:function(data){
+									if(data.result=="success"){
+										var UID = data.UID;
+										$.ajax({
+											type:"post"
+											,url:"/reg/submit/set-nickname"
+											,data:{
+												"NickID": NickID
+												,"UID": UID
+											}
+										})
+										window.location.replace("/reg/welcome");
+									} else{
+										alert("회원가입에 실패했어요. \n다시 시도해 주세요");
+									}
+								}
+								,error:function(){
+									alert("문제가 발생했어요.\n다시 시도해 주세요.")
+								}
+							})
 						}
 					}
 					,error:function(){
-						alert("문제가 발생했어요.\n다시 시도해 주세요.")
+						alert("이메일 중복확인에 실패했어요.\n다시 시도해 주세요")
 					}
 				})
 			});

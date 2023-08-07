@@ -7,7 +7,7 @@ public class Userinfo {
 	private int UID;
 	private String email;
 	private String password;
-	private int NicknameID;
+	private int NickID;
 	private int ITRID;
 	private String profileImage;
 	private Date createdAt;
@@ -30,11 +30,11 @@ public class Userinfo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getNicknameID() {
-		return NicknameID;
+	public int getNickID() {
+		return NickID;
 	}
-	public void setNicknameID(int nicknameID) {
-		NicknameID = nicknameID;
+	public void setNickID(int nickID) {
+		NickID = nickID;
 	}
 	public int getITRID() {
 		return ITRID;
@@ -60,7 +60,6 @@ public class Userinfo {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 	
 	
 }

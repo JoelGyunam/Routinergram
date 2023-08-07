@@ -12,4 +12,6 @@ public interface UserNicknameRepository {
 	
 	public int insertNickname(UserNickname userNickname);
 	
+	public int updateNickname(UserNickname userNickname);
+	
 }

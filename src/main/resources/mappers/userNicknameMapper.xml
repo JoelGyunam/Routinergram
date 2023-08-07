@@ -18,4 +18,11 @@
  			#{nickname}
  		)
  	</insert>
+ 	
+ 	<update id = "updateNickname" parameterType = "map">
+ 		UPDATE `usernickname`
+	 		SET `UID` = #{UID}
+ 			WHERE `NickID` = #{NickID}
+ 	</update>
+ 	
  </mapper>

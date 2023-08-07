@@ -34,4 +34,8 @@ public class UserinfoService {
 		return userinfoRepository.loginSelect(userinfo);
 	}
 	
+	public int emailDupCheck(Userinfo userinfo) {
+		return userinfoRepository.countEmail(userinfo);
+	}
+	
 }
