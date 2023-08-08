@@ -12,4 +12,9 @@ public class FeedController {
 	public String feedMainView() {
 		return "feed/feed";
 	}
+	
+	@GetMapping("/myfeed")
+	public String myfeedView() {
+		return "feed/myfeed";
+	}
 }

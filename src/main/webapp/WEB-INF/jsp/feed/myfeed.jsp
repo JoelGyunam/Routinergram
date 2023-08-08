@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체 피드보기, 루티너그램</title>
+<title>내 피드보기, 루티너그램</title>
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/variable/woff2/SUITE-Variable.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
@@ -17,20 +17,21 @@
 
 	<section>
 		<div class="container">
-		
-			<div id="filterBox">
-				<div class="d-flex justify-content-around">
-					<div class = "col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success">전체보기</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">걷기</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">독서</div>
+			<div class="d-flex justify-content-center p-3">
+				<div class="mx-1 col-6">
+					<div class="font-weight-bold text-center">나의 목표 루틴</div>
+					<div class = "rounded p-1 m-1 text-center text-white bg-success">독서</div>
 				</div>
-				<div class="d-flex justify-content-around mb-1">
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">운동</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">식사</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">자기개발</div>
+				<div class="mx-1 col-6">
+					<div class="font-weight-bold text-center">루틴 점수</div>
+					<div class = "rounded p-1 m-1 text-center text-white bg-success">56</div>
 				</div>
-				<hr>
 			</div>
+			<div class="d-flex justify-content-center">
+				<button class="col-12 btn btn-primary text-white">나의 루틴 피드 업로드하기</button>
+			</div>
+			<hr>
+		
 			
 			<div id="feedUnit" class="my-1">
 				<div class="d-flex align-items-center m-1">
@@ -43,7 +44,7 @@
 					<div class="d-flex align-items-center mb-1">
 						<div class="small text-white bg-success rounded p-1 px-3 text-center">독서 루틴</div>
 						<div class="small text-white bg-success rounded p-1 px-3 text-center ml-1">58</div>
-						<div id="ifMine" class="small text-danger ml-auto d-none">수정 | 삭제</div>
+						<div id="ifMine" class="small text-danger ml-auto">수정 | 삭제</div>
 					</div>
 					<div>피드폰문이 여기에 들어간다 이런식으로</div>
 				</div>

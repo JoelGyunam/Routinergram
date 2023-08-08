@@ -46,8 +46,8 @@
 	<script>
 		$(document).ready(function(){
 			
-			if(${UID }==""){
-				location.href="/main/login";
+			if("${UID}"==""){
+				window.location.replace("/main/login");
 			};
 			
 			$("#startBtn").on("click",function(){
