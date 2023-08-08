@@ -28,6 +28,19 @@ public class RegistrationRestController {
 	@Autowired
 	private UserNicknameService userNicknameService;
 	
+	@GetMapping("/submit/reset-nickname-at-dupCheck")
+	public Map<String, String> resetNickAtDupCheck(@RequestParam("NickID") int NickID){
+		int result = userNicknameService.resetNickname(NickID);
+		Map<String,String> resultMap = new HashMap<>();
+		if(result == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	
+	
 	@PostMapping("/submit/if-email-duplicated")
 	public Map<String, Boolean> ifDuplicatedEmail(@RequestParam("email") String email){
 		Userinfo userinfo = new Userinfo();

@@ -27,4 +27,8 @@ public class UserNicknameService {
 	public String getUserNicknameByNickID(int NickID) {
 		return userNicknameRepository.selectNicknameByNickID(NickID);
 	}
+	
+	public int resetNickname(int NickID) {
+		return userNicknameRepository.deleteNicknameByNickID(NickID);
+	}
 }

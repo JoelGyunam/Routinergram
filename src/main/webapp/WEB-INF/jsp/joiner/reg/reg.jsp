@@ -54,6 +54,7 @@
 					<button id="nicknameDupCheckBtn" class="btn btn-primary  ml-1">중복 확인</button>
 				</div>
 				<div id="nicknameDupCheckAlert" class="small text-danger">이미 사용중인 닉네임이에요.</div>
+				<div id="nicknameAvailableAlert" class="small text-success">사용 가능한 닉네임이에요.</div>
 				<div class="small text-dark">한글, 영문, 숫자를 최대 16자 까지 입력할 수 있어요.</div>
 			</div>
 			<div class="mt-2">
@@ -95,6 +96,7 @@
 			$("#emailValidAlert").hide();
 			$("#emailDupCheckAlert").hide();
 			$("#nicknameDupCheckAlert").hide();
+			$("#nicknameAvailableAlert").hide();
 			$("#atSymbol").hide();
 			$("#passwordRegAlert").hide();
 			
@@ -178,6 +180,25 @@
 	        	} else $("#emailValidAlert").hide();
 			});
 			
+			$("#nickname").on("focus",function(){
+				
+				if(NickID != ""){
+					$.ajax({
+						type:"get"
+						,url:"/reg/submit/reset-nickname-at-dupCheck"
+						,data:{
+							"NickID":NickID
+						}
+						,success:function(){
+							nicknameDupCheck = false;
+							NickID="";
+							$("#nicknameAvailableAlert").hide();
+						}
+					})
+				}
+			});
+			
+			
 			$("#nicknameDupCheckBtn").on("click",function(){
 				
 				var nickname = $("#nickname").val()
@@ -196,10 +217,11 @@
 								nicknameDupCheck = true;
 								NickID = data.NickID;
 								$("#nicknameDupCheckAlert").hide();
-
+								$("#nicknameAvailableAlert").show();
 							} else{
 								alert("이미 사용중인 닉네임입니다.\다른 닉네임을 사용해 주세요");
 								$("#nicknameDupCheckAlert").show();
+								$("#nicknameAvailableAlert").hide();
 								}
 							}
 						,error:function(){

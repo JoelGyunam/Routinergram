@@ -31,4 +31,9 @@
  		WHERE NickID = #{NickID}
  	</select>
  	
+ 	<delete id="deleteNicknameByNickID" parameterType="map">
+	 	DELETE FROM `usernickname`
+		WHERE `NickID` = #{NickID};
+ 	</delete>
+ 	
  </mapper>
