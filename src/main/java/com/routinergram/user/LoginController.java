@@ -1,5 +1,7 @@
 package com.routinergram.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,4 +21,9 @@ public class LoginController {
 		return "joiner/login/forgotpw";
 	};
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main/login";
+	}
 }

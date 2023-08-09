@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.routinergram.user.domain.Userinfo;
+import com.routinergram.user.service.UserNicknameService;
 import com.routinergram.user.service.UserinfoService;
 
 @RestController
@@ -21,6 +22,9 @@ public class LoginRestController {
 
 	@Autowired
 	private UserinfoService userinfoService;
+	
+	@Autowired
+	private UserNicknameService userNicknameService;
 	
 	@PostMapping("/enter")
 	public Map<String, String> loginRequest(
@@ -39,9 +43,10 @@ public class LoginRestController {
 		
 		if(userinfo != null) {
 			loginResultMap.put("result", "success");
+			String nickname = userNicknameService.getUserNicknameByNickID(userinfo.getNickID());
 			HttpSession session = request.getSession();
 			session.setAttribute("UID", userinfo.getUID());
-			session.setAttribute("NickID", userinfo.getNickID());
+			session.setAttribute("nickname", nickname);
 			session.setAttribute("email", userinfo.getEmail());
 		} else {
 			loginResultMap.put("result", "fail");

@@ -122,6 +122,7 @@ public class RegistrationRestController {
 			
 			session.setAttribute("UID", userinfo.getUID());
 			session.setAttribute("NickID", userinfo.getNickID());
+			session.setAttribute("email", userinfo.getEmail());
 			session.setAttribute("nickname", nickname);
 			
 			

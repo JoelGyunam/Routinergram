@@ -24,7 +24,16 @@
  	</insert>
  	
  	<select id = "loginSelect" parameterType="map" resultType="com.routinergram.user.domain.Userinfo">
- 		SELECT `UID`
+ 		SELECT 
+ 			`UID`
+ 			,`email`
+ 			,`password`
+ 			,`salt`
+ 			,`NickID`
+ 			,`ITRID`
+ 			,`profileImage`
+ 			,`createdAt`
+ 			,`updatedAt`
 		FROM `userinfo`
 		WHERE 
 			`email`= #{email} 
