@@ -17,4 +17,9 @@ public class FeedController {
 	public String myfeedView() {
 		return "feed/myfeed";
 	}
+	
+	@GetMapping("/myfeed/upload")
+	public String feedUpload() {
+		return "feed/upload";
+	}
 }

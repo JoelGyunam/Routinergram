@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-center">
-				<button class="col-12 btn btn-primary text-white">나의 루틴 피드 업로드하기</button>
+				<button class="col-12 btn btn-primary text-white" onclick="window.location.href='/main/feed/myfeed/upload'">나의 루틴 피드 업로드하기</button>
 			</div>
 			<hr>
 		
@@ -79,7 +79,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	<script>
+	$(document).ready(function(){
+		var UID = "${UID}";
 		
+		if(UID==""){
+			alert("루티너그램은 로그인 후 사용할 수 있어요!\n로그인 화면으로 이동합니다.");
+			window.location.replace("/greeting");
+		};
+		
+		$.ajax({
+			method:"post"
+			,url:"/rest/activity/visit-up"
+			,data:{
+				"UID":UID
+			}
+		})
+		
+	});
 	</script>
 </body>
 </html>
