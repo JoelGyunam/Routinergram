@@ -14,4 +14,6 @@ public interface ActivityRepository {
 	
 	public int updateVisitCount(@Param("UID") int UID);
 	
+	public int updateUploadCount(@Param("UID") int UID);
+	
 }

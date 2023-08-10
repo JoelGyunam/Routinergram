@@ -24,8 +24,20 @@
  	<update id="updateVisitCount" parameterType="int">
  	
  		UPDATE `useractivity`
- 		SET `visitCount` = `visitCount` + 1
- 		WHERE `UID` = #{UID}
+	 		SET 
+	 			`visitCount` = `visitCount` + 1,
+	 			`updatedAt` = now()
+	 		WHERE `UID` = #{UID}
+ 	
+ 	</update>
+ 	
+ 	<update id="updateUploadCount" parameterType="int">
+ 	
+ 		UPDATE `useractivity`
+	 		SET 
+	 			`uploadCount` = `uploadCount` + 1,
+	 			`updatedAt` = now()
+ 			WHERE `UID` = #{UID}
  	
  	</update>
  

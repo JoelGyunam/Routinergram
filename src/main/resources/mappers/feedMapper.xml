@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.routinergram.feed.repository.FeedRepository">
+
+	<insert id="insertFeed" parameterType="com.routinergram.feed.domain.Feed">
+	
+		INSERT INTO `feed` 
+			(`image`,`text`,`levelValue`,`UID`)
+		VALUE
+			(
+			#{image}
+			,#{text}
+			,#{levelValue}
+			,#{UID}
+			)
+	
+	</insert>
+
+</mapper>

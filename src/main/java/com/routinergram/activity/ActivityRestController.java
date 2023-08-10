@@ -1,7 +1,5 @@
 package com.routinergram.activity;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.routinergram.activity.domain.UserActivity;
 import com.routinergram.activity.service.ActivityService;
 
 @RequestMapping("/rest/activity")
@@ -44,6 +41,29 @@ public class ActivityRestController {
 			resultCount = activityService.raiseVisitCount(UID);
 		};
 				
+		Map<String,String> resultMap = new HashMap<>();
+		if(resultCount == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@PostMapping("/upload-up")
+	public Map<String, String> uploadCountUp(HttpSession session){
+		int UID = (int) session.getAttribute("UID");
+		int resultCount=0;
+		
+		int ifNewUser = activityService.newUserActivity(UID);
+		
+		if(ifNewUser == 1) {
+			resultCount = ifNewUser;
+		} else {
+			resultCount = activityService.raiseUploadCount(UID);
+		};
+		
 		Map<String,String> resultMap = new HashMap<>();
 		if(resultCount == 1) {
 			resultMap.put("result", "success");

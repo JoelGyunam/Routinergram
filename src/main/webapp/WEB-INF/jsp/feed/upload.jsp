@@ -49,6 +49,39 @@
 				$("#fileInput").click();
 			});
 			
+			$("#submitBtn").on("click",function(){
+				
+				var text = $("#textInput").val();
+				var image = "imageSampleText";
+				
+				confirm("피드를 올릴까요?");
+				$.ajax({
+					type:"post"
+					,url:"/rest/myfeed/upload/submit"
+					,data:{
+						"text":text
+						,"image":image
+					}
+					,success:function(data){
+						if(data.result == "success"){
+							window.location.replace("/main/feed");
+							$.ajax({
+								type:"post"
+								,url:"/rest/activity/upload-up"
+								,data:{
+									"UID":${UID}
+								}
+							})
+						} else{
+							alert("피드를 올리지 못했어요.");
+						}
+					}
+					,error:function(){
+						alert("오류가 발생했습니다.");
+					}
+				});
+			});
+			
 			$("#textInput").on("keyup",function(){
 				textValue = $("#textInput").val();
 				if(textValue!=""){

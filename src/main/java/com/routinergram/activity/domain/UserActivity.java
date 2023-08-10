@@ -1,7 +1,6 @@
 package com.routinergram.activity.domain;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;

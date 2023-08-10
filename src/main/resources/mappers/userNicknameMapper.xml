@@ -21,7 +21,9 @@
  	
  	<update id = "updateNickname" parameterType = "map">
  		UPDATE `usernickname`
-	 		SET `UID` = #{UID}
+	 		SET 
+	 			`UID` = #{UID}
+	 			`updatedAt` = now()
  			WHERE `NickID` = #{NickID}
  	</update>
  	

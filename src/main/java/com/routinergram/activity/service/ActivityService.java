@@ -1,5 +1,7 @@
 package com.routinergram.activity.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
@@ -15,8 +17,25 @@ public class ActivityService {
 	@Autowired
 	private ActivityRepository activityRepository;
 	
+	public int raiseUploadCount(int UID) {
+		UserActivity userActivity = getActivityInfo(UID);
+		int result = 0;
+		
+		if(userActivity == null) {
+			return result;
+		} else {
+			result = activityRepository.updateUploadCount(UID);
+		}
+		return result;
+	}
+	
+	
 	public UserActivity getActivityInfo(int UID) {
-		return activityRepository.selectUserActivity(UID);
+		if(activityRepository.selectUserActivity(UID)==null) {
+			return null;
+		} else {
+			return activityRepository.selectUserActivity(UID);
+		}
 	}
 	
 	// UID 를 파라미터로 받아, getActivityInfo 로부터 userAcitivy 테이블의 정보를 객체로 받고,
@@ -44,10 +63,10 @@ public class ActivityService {
 			return result;
 		}
 		
-		Date today = new Date();
-		Date lastUpdate = new Date(userActivity.getUpdatedAt().toInstant().toEpochMilli());
+		LocalDate today = LocalDate.now();
+		LocalDate lastDate = userActivity.getUpdatedAt().toLocalDate();
 		
-		if(today.after(lastUpdate)) {
+		if(lastDate.isAfter(today)) {
 			result = activityRepository.updateVisitCount(UID);
 		}
 		return result;
