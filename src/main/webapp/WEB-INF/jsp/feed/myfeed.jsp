@@ -93,6 +93,13 @@
 			,data:{
 				"UID":UID
 			}
+			,success:function(data){
+				if(data.result=="success"){
+					alert("방문 1 올렸음");
+				} else{
+					alert("방문 안올렸음");
+				}
+			}
 		})
 		
 	});

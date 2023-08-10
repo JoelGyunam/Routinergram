@@ -1,5 +1,6 @@
 package com.routinergram.activity.domain;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import lombok.Getter;
@@ -15,7 +16,7 @@ public class UserActivity {
 	private int replyCount;
 	private int visitCount;
 	private int level;
-	private Date createdAt;
-	private Date updatedAt;
+	private ZonedDateTime createdAt;
+	private ZonedDateTime updatedAt;
 	
 }

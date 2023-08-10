@@ -1,6 +1,6 @@
 package com.routinergram.user.domain;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +16,8 @@ public class Userinfo {
 	private int NickID;
 	private int ITRID;
 	private String profileImage;
-	private Date createdAt;
-	private Date updatedAt;
+	private ZonedDateTime createdAt;
+	private ZonedDateTime updatedAt;
 	
 	
 	
