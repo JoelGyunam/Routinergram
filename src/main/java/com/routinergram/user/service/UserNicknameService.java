@@ -28,6 +28,10 @@ public class UserNicknameService {
 		return userNicknameRepository.selectNicknameByNickID(NickID);
 	}
 	
+	public String getUserNicknameByUID(int UID) {
+		return userNicknameRepository.selectNicknameByUID(UID);
+	}
+	
 	public int resetNickname(int NickID) {
 		return userNicknameRepository.deleteNicknameByNickID(NickID);
 	}

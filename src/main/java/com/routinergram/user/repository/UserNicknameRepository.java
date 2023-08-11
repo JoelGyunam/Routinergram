@@ -16,6 +16,8 @@ public interface UserNicknameRepository {
 	
 	public String selectNicknameByNickID(int NickID);
 	
+	public String selectNicknameByUID(int UID);
+	
 	public int deleteNicknameByNickID(int NickID);
 	
 }

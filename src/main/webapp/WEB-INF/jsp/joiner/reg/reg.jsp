@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,11 +63,9 @@
 				<label>관심 루틴을 선택해 주세요</label>
 				<select id="interest" class="form-control">
 					<option value="nonselect" selected>목표루틴 선택하기</option>
-					<option value="1">걷기</option>
-					<option value="2">독서</option>
-					<option value="3">운동</option>
-					<option value="4">식사</option>
-					<option value="5">자기개발</option>
+				<c:forEach var="option" items="${interestOption }">
+					<option value="${option.ITRID }">${option.interestName}</option>
+				</c:forEach>
 				</select>
 				<div class="small text-gray">가입 후에도 언제든지 수정 가능해요.</div>
 			</div>
@@ -90,6 +90,7 @@
 			var emailValue = "";
 			var nicknameDupCheck = false;
 			var NickID = "";
+			var interestOption;
 			
 			$("#passwordValidSuccessAlert").hide();
 			$("#passwordValidFailAlert").hide();
@@ -99,6 +100,8 @@
 			$("#nicknameAvailableAlert").hide();
 			$("#atSymbol").hide();
 			$("#passwordRegAlert").hide();
+			
+			
 			
 			
 	        function IsEmail(emailValue) {

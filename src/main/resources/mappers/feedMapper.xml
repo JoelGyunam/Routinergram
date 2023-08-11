@@ -7,15 +7,31 @@
 	<insert id="insertFeed" parameterType="com.routinergram.feed.domain.Feed">
 	
 		INSERT INTO `feed` 
-			(`image`,`text`,`levelValue`,`UID`)
+			(`image`,`text`,`levelValue`,`UID`,`ITRID`)
 		VALUE
 			(
 			#{image}
 			,#{text}
 			,#{levelValue}
 			,#{UID}
+			,#{ITRID}
 			)
 	
 	</insert>
+
+	<select	id="selectFeedAll" resultType="com.routinergram.feed.domain.Feed">
+	
+		SELECT
+			`FID`
+			,`image`
+			,`text`
+			,`levelValue`
+			,`UID`
+			,`ITRID`
+			,`createdAt`
+			,`updatedAt`
+		FROM `feed`
+		ORDER BY `FID` DESC;
+	</select>
 
 </mapper>

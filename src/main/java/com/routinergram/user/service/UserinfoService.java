@@ -13,6 +13,10 @@ public class UserinfoService {
 	@Autowired
 	private UserinfoRepository userinfoRepository;
 	
+	public Userinfo getUserInfoByUID(int UID) {
+		return userinfoRepository.selectUserInfoByUID(UID);
+	}
+	
 	public int registrationRequest(Userinfo userinfo) {
 		
 		Encrypt encrypt = new Encrypt();

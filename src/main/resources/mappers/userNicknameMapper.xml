@@ -23,7 +23,7 @@
  		UPDATE `usernickname`
 	 		SET 
 	 			`UID` = #{UID}
-	 			`updatedAt` = now()
+	 			,`updatedAt` = now()
  			WHERE `NickID` = #{NickID}
  	</update>
  	
@@ -31,6 +31,12 @@
  		SELECT `nickname`
  		FROM `usernickname`
  		WHERE NickID = #{NickID}
+ 	</select>
+ 	
+ 	<select id="selectNicknameByUID" parameterType="map" resultType="String">
+ 		SELECT `nickname`
+ 		FROM `usernickname`
+ 		WHERE UID = #{UID}
  	</select>
  	
  	<delete id="deleteNicknameByNickID" parameterType="map">

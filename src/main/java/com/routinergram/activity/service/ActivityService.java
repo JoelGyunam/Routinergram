@@ -66,7 +66,7 @@ public class ActivityService {
 		LocalDate today = LocalDate.now();
 		LocalDate lastDate = userActivity.getUpdatedAt().toLocalDate();
 		
-		if(lastDate.isAfter(today)) {
+		if(lastDate.isBefore(today)) {
 			result = activityRepository.updateVisitCount(UID);
 		}
 		return result;

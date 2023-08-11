@@ -11,6 +11,8 @@ public interface UserinfoRepository {
 	public int insertUserinfo(Userinfo userinfo);
 	
 	public Userinfo loginSelect(Userinfo userinfo);
+
+	public Userinfo selectUserInfoByUID(int UID);
 	
 	public int countEmail(Userinfo userinfo);
 	

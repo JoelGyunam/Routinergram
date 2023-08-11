@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,24 +31,29 @@ public class ActivityRestController {
 	
 	@PostMapping("/visit-up")
 	public Map<String, String> visitCountUp(HttpSession session){
-		int UID = (int) session.getAttribute("UID");
+		Map<String,String> resultMap = new HashMap<>();
 		int resultCount=0;
 		
-		int ifNewUser = activityService.newUserActivity(UID);
-		
-		if(ifNewUser == 1) {
-			resultCount = ifNewUser;
+		if(session.getAttribute("UID") == null) {
+			resultMap.put("result", "fail");
+			return resultMap;
 		} else {
-			resultCount = activityService.raiseVisitCount(UID);
+			int UID = (int) session.getAttribute("UID");
+			
+			int ifNewUser = activityService.newUserActivity(UID);
+			
+			if(ifNewUser == 1) {
+				resultCount = ifNewUser;
+			} else {
+				resultCount = activityService.raiseVisitCount(UID);
+			};
 		};
-				
-		Map<String,String> resultMap = new HashMap<>();
+					
 		if(resultCount == 1) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");
 		}
-		
 		return resultMap;
 	}
 	

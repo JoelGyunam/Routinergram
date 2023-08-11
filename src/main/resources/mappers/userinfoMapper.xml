@@ -40,12 +40,27 @@
 			AND `password` = #{password}
  	</select>
  	
- 	<select id = "selectSalt" parameterType="map" resultType="String">
+ 	<select id="selectSalt" parameterType="map" resultType="String">
  		SELECT `salt`
  		FROM `userinfo`
  		WHERE
  			`email`= #{email}
  	</select>
  	
+ 	<select id="selectUserInfoByUID" parameterType="int"  resultType="com.routinergram.user.domain.Userinfo">
+		SELECT 
+ 			`UID`
+ 			,`email`
+ 			,`password`
+ 			,`salt`
+ 			,`NickID`
+ 			,`ITRID`
+ 			,`profileImage`
+ 			,`createdAt`
+ 			,`updatedAt`
+		FROM `userinfo`
+		WHERE 
+			`UID`= #{UID} 
+ 	</select>
  	
  </mapper>

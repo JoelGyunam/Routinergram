@@ -13,8 +13,10 @@ public class Feed {
 	private String text;
 	private int levelValue;
 	private int UID;
+	private int ITRID;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
 	
-	
+	private String nickname;
+	private String interestsName;
 }
