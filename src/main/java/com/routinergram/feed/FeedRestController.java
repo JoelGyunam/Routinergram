@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.routinergram.feed.service.FeedService;
 import com.routinergram.user.service.UserinfoService;
@@ -25,14 +26,15 @@ public class FeedRestController {
 	private UserinfoService userinfoService;
 	
 	@PostMapping("/myfeed/upload/submit")
-	public Map<String, String> postFeed(@RequestParam("image") String image
+	public Map<String, String> postFeed(
+			@RequestParam(value="image", required=false) MultipartFile imageFile
 			,@RequestParam("text") String text
 			,HttpSession session) 
 	{
 		int UID = (int) session.getAttribute("UID");
 		int ITRID = userinfoService.getUserInfoByUID(UID).getITRID();
 		
-		int result = feedService.postFeed(UID, image, text, ITRID);
+		int result = feedService.postFeed(UID, imageFile, text, ITRID);
 		Map<String, String> resultMap = new HashMap<>();
 		
 		if(result == 1) {

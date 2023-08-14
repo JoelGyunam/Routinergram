@@ -1,13 +1,13 @@
 package com.routinergram.feed.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.routinergram.activity.service.ActivityService;
+import com.routinergram.common.FileManager;
 import com.routinergram.feed.domain.Feed;
 import com.routinergram.feed.repository.FeedRepository;
 import com.routinergram.user.service.UserNicknameService;
@@ -22,13 +22,15 @@ public class FeedService {
 	@Autowired
 	private UserNicknameService userNicknameService;
 	
-	public int postFeed(int UID, String image, String text, int ITRID) {
+	public int postFeed(int UID, MultipartFile imageFile, String text, int ITRID) {
 		int level = activityService.getActivityInfo(UID).getLevel();
 
 		Feed feed = new Feed();
+		
+		String imagePath = FileManager.saveFile(UID, imageFile);
 
 		feed.setUID(UID);
-		feed.setImage(image);
+		feed.setImage(imagePath);
 		feed.setText(text);
 		feed.setLevelValue(level);
 		feed.setITRID(ITRID);

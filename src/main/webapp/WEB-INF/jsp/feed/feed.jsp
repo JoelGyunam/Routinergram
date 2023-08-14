@@ -40,7 +40,7 @@
 					<div class="mr-2" >${feed.nickname}</div>
 					<div class="ml-auto p-2">3분 전</div>
 				</div>
-				<img class="rounded" width="100%" src="/static/img/wallpaper for a search.png">
+				<img class="rounded" width="100%" src="${feed.image}">
 				<div class="p-2">
 					<div class="d-flex align-items-center mb-1">
 						<div class="small text-white bg-success rounded p-1 px-3 text-center">독서 루틴</div>

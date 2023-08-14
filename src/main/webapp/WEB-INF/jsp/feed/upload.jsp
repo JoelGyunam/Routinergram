@@ -18,10 +18,10 @@
 	<section>
 		<div class="container">
 			<h5 class="text-center pt-3 font-weight-bold">피드 올리기</h5><hr>
-			<div id="fileUploadBtn"><img width="100%" src="/static/img/imageUploadPlaceholder.png"></div>
-			<input type="file" id="fileInput" class="d-none">
+			<div id="fileUploadBtn"><img id="imagePlace" width="100%" src="/static/img/imageUploadPlaceholder.png"></div>
+			<input type="file" id="fileInput" accept="image/*" class="d-none">
 		</div>
-		<div class="px-2">
+		<div class="px-2 m-1">
 			<label class="font-weight-bold">설명을 입력해 주세요.</label>
 			<textarea id="textInput" rows="6" class="form-control" maxlength="2200" placeholder="자세한 설명은 더 많은 공감을 얻을 수 있어요!"></textarea>
 		</div>
@@ -54,19 +54,41 @@
 				$("#fileInput").click();
 			});
 			
+			$("#fileInput").on("change",function(){
+				var $input = $(this);
+				var reader = new FileReader();
+				reader.onload = function(){
+					$("#imagePlace").attr("src",reader.result);
+				}
+				reader.readAsDataURL($input[0].files[0]);
+				
+				var textValue = $("#textInput").val();
+				var inputLength = $("#fileInput")[0].files.length;
+				if(inputLength!=0 && textValue!=""){
+					$("#submitBtn").prop("disabled",false);
+				} else{
+					$("#submitBtn").prop("disabled",true);
+				}
+			})
+			
+			
 			$("#submitBtn").on("click",function(){
 				
 				var text = $("#textInput").val();
-				var image = "imageSampleText";
+				var image = $("#fileInput")[0];
+				
+				var formData = new FormData();
+				formData.append("text",text);
+				formData.append("image",image.files[0]);
 				
 				confirm("피드를 올릴까요?");
 				$.ajax({
 					type:"post"
 					,url:"/rest/myfeed/upload/submit"
-					,data:{
-						"text":text
-						,"image":image
-					}
+					,data:formData
+					,enctype:"multipart/form-data"
+					,processData:false
+					,contentType:false
 					,success:function(data){
 						if(data.result == "success"){
 							window.location.replace("/main/feed");
@@ -89,7 +111,8 @@
 			
 			$("#textInput").on("keyup",function(){
 				textValue = $("#textInput").val();
-				if(textValue!=""){
+				var inputLength = $("#fileInput")[0].files.length;
+				if(textValue!=""&&inputLength!==0){
 					$("#submitBtn").prop("disabled",false);
 				} else{
 					$("#submitBtn").prop("disabled",true);
