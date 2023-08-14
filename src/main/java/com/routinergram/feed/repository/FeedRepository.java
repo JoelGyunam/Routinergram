@@ -13,4 +13,9 @@ public interface FeedRepository {
 	
 	public List<Feed> selectFeedAll();
 	
+	public Feed selectFeedToEdit(Feed feed);
+	
+	public int updateFeed(Feed feed);
+	
+	public int deleteFeed(Feed feed);
 }

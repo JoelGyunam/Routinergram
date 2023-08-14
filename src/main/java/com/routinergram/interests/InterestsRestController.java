@@ -26,8 +26,6 @@ public class InterestsRestController {
 		Map<Object, String> listMap = new HashMap<>();
 		List<Map<Object,String>> resultList = new ArrayList<>();
 		
-		
-		
 		if(interestsService.getInterestList() != null) {
 			resultMap.put("result", "success");
 			resultList.add(resultMap);

@@ -20,7 +20,6 @@
 	</insert>
 
 	<select	id="selectFeedAll" resultType="com.routinergram.feed.domain.Feed">
-	
 		SELECT
 			`FID`
 			,`image`
@@ -33,5 +32,30 @@
 		FROM `feed`
 		ORDER BY `FID` DESC;
 	</select>
+	
+	<select id="selectFeedToEdit" resultType="com.routinergram.feed.domain.Feed">
+		SELECT
+			`FID`
+			,`image`
+			,`text`
+			,`levelValue`
+			,`UID`
+			,`ITRID`
+			,`createdAt`
+			,`updatedAt`
+		FROM `feed`
+		WHERE `FID`=#{FID} AND `UID`=#{UID}
+	</select>
 
+	<update id="updateFeed">
+	UPDATE `feed`
+		SET `text` = #{text}
+		WHERE `FID`=#{FID} AND `UID`=#{UID}
+	</update>
+	
+	<delete id="deleteFeed">
+	DELETE FROM `feed`
+	WHERE `FID`=#{FID} AND `UID`=#{UID}
+	</delete>
+	
 </mapper>

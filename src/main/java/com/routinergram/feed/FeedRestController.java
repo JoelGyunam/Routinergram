@@ -45,4 +45,37 @@ public class FeedRestController {
 		return resultMap;
 	}
 	
+	@PostMapping("/myfeed/edit/submit")
+	public Map<String, String> feedEditSubmit(
+			@RequestParam("FID") int FID
+			,@RequestParam("text") String text
+			,HttpSession session
+			){
+		int UID = (int) session.getAttribute("UID");
+		
+		int result = feedService.editSubmit(UID, FID, text);
+		Map<String, String> resultMap = new HashMap<>();
+		if(result == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+	
+	@PostMapping("/myfeed/edit/del")
+	public Map<String, String> deleteFeed(
+			@RequestParam("FID") int FID
+			,HttpSession session
+			){
+		int UID = (int) session.getAttribute("UID");
+		int result = feedService.deleteFeed(UID, FID);
+		Map<String, String> resultMap = new HashMap<>();
+		if(result == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
 }

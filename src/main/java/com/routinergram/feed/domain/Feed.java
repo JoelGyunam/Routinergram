@@ -19,4 +19,5 @@ public class Feed {
 	
 	private String nickname;
 	private String interestsName;
+	private String countedDate;
 }

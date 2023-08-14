@@ -20,15 +20,17 @@
 		<div class="container">
 		
 			<div id="filterBox">
-				<div class="d-flex justify-content-around">
-					<div class = "col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success">전체보기</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">걷기</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">독서</div>
-				</div>
-				<div class="d-flex justify-content-around mb-1">
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">운동</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">식사</div>
-					<div class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">자기개발</div>
+				<div id="radio-group" class="d-flex flex-wrap justify-content-center">
+					<label id="ITRisnonselect" class = "col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success">
+						전체보기
+						<input type="radio" name="interest" value="nonselect" class="d-none" checked>
+					</label>
+					<c:forEach var="interest" items="${interestList }">
+					<label id="ITRis${interest.ITRID }" class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">
+						${interest.interestName }
+						<input type="radio" name="interest" value="${interest.ITRID }" class="d-none">
+					</label>
+					</c:forEach>
 				</div>
 				<hr>
 			</div>
@@ -38,20 +40,32 @@
 				<div class="d-flex align-items-center m-1">
 					<img class="mr-2" height="24" src="/static/img/People_circle.png">
 					<div class="mr-2" >${feed.nickname}</div>
-					<div class="ml-auto p-2">3분 전</div>
+					<div class="ml-auto p-2">${feed.countedDate }</div>
 				</div>
 				<img class="rounded" width="100%" src="${feed.image}">
 				<div class="p-2">
 					<div class="d-flex align-items-center mb-1">
-						<div class="small text-white bg-success rounded p-1 px-3 text-center">독서 루틴</div>
+						<div class="small text-white bg-success rounded p-1 px-3 text-center">${feed.interestsName }</div>
 						<div class="small text-white bg-success rounded p-1 px-3 text-center ml-1">${feed.levelValue }</div>
-						<div id="ifMine" class="small text-danger ml-auto d-none">수정 | 삭제</div>
+					<c:choose>
+						<c:when test="${feed.UID eq UID }">
+						<div id="ifMine" class="small text-danger ml-auto">
+							<a href="/main/feed/myfeed/edit?FID=${feed.FID }">수정 | 삭제</a>
+						</div>
+						</c:when>
+					</c:choose>
 					</div>
 					<div>${feed.text}</div>
 				</div>
 				<div class="d-flex ml-3 align-items-center">
-					<img height="22" src="/static/img/Heart.png">
-					<img height="22" src="/static/img/Chat.png" style="margin-bottom:3px" class="ml-3" >
+					<div class="text-center p-1">
+						<h5 class="mx-2 bi bi-heart text-center"></h5>
+						<div>좋아요</div>
+					</div>
+					<div class="text-center p-1">
+						<h5 class="mx-2 fw-bold bi bi-chat-left text-center"></h5>
+						<div>댓글</div>
+					</div>
 				</div>
 				<div id="reply" class="d-flex p-2">
 					<img class="m-1" height="24" src="/static/img/People_circle.png">
@@ -61,9 +75,6 @@
 				<hr>
 			</div>
 		</c:forEach>
-			
-			
-			
 			
 			<div id="feedEnding" style="height:60px"></div>
 		</div>
@@ -82,5 +93,16 @@
     	var UID = '<%= session.getAttribute("UID") %>';
 	</script>
 	<script src="/static/js/only-for-user.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#radio-group").on("change",function(){
+		        var interestRadioValue = $("input[type=radio][name=interest]:checked").val();
+		        var selectedITRBox = "#ITRis"+interestRadioValue;
+		        
+				$("#radio-group label").attr("class","col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white");
+				$(selectedITRBox).attr("class","col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success");
+			});
+		});
+	</script>
 </body>
 </html>
