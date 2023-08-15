@@ -39,7 +39,7 @@
 						<div class="d-flex align-items-center"><div>좋아요</div><b class="ml-2">${feed.likeCount }</b><div>개</div></div>
 					</div>
 					<div class="text-center p-1">
-						<h5 class="mx-2 fw-bold bi bi-chat-left text-center"></h5>
+						<h5 class="mx-2 fw-bold bi bi-chat-left text-center"  onclick="location.href='/main/feed/reply?FID=${feed.FID }';"></h5>
 						<div>댓글</div>
 					</div>
 				</div>

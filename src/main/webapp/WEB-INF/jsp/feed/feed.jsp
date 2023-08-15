@@ -34,7 +34,7 @@
 				</div>
 				<hr>
 			</div>
-			  <%@ include file="/WEB-INF/jsp/feed/feedUniter.jsp" %>
+			  <%@ include file="/WEB-INF/jsp/feed/feedUnit.jsp" %>
 	
 			<div id="feedEnding" style="height:60px"></div>
 		</div>

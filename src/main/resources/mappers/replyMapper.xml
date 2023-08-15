@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.routinergram.reply.repository.ReplyRepository">
+
+	<insert id="insertReply">
+		INSERT INTO `reply`	(`replyText`,`FID`,`UID`)
+		VALUE
+		(
+		#{replyText}
+		,#{FID}
+		,#{UID}
+		);
+	</insert>
+
+	<select id="selectReplyListByFID" parameterType="int" resultType="com.routinergram.reply.domain.Reply">
+		SELECT
+			RPID
+			,replyText
+			,FID
+			,UID
+			,createdAt
+			,updatedAt
+		FROM reply
+		WHERE FID = #{FID}
+		ORDER BY createdAt DESC;
+	</select>
+	
+	<delete id="deleteReplyByRPID" parameterType="com.routinergram.reply.domain.Reply">
+		DELETE FROM 
+			reply 
+		WHERE RPID = #{RPID} AND UID = #{UID};
+	</delete>
+
+</mapper>

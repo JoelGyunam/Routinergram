@@ -26,6 +26,8 @@ public class FeedController {
 	@Autowired
 	private InterestsService interestsService;
 
+	
+	
 	@GetMapping()
 	public String feedMainView(@RequestParam(value="ITRID", required=false)Integer ITRID
 			,Model model
