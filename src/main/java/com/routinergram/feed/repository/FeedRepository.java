@@ -13,6 +13,10 @@ public interface FeedRepository {
 	
 	public List<Feed> selectFeedAll();
 	
+	public List<Feed> selectFeedByITRID(Feed feed);
+	
+	public Feed selectFeedByFID(Feed feed);
+	
 	public Feed selectFeedToEdit(Feed feed);
 	
 	public int updateFeed(Feed feed);

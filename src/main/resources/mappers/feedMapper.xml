@@ -33,6 +33,35 @@
 		ORDER BY `FID` DESC;
 	</select>
 	
+	<select	id="selectFeedByITRID" resultType="com.routinergram.feed.domain.Feed">
+		SELECT
+			`FID`
+			,`image`
+			,`text`
+			,`levelValue`
+			,`UID`
+			,`ITRID`
+			,`createdAt`
+			,`updatedAt`
+		FROM `feed`
+		WHERE `ITRID` = #{ITRID}
+		ORDER BY `FID` DESC;
+	</select>
+	
+	<select	id="selectFeedByFID" parameterType="com.routinergram.feed.domain.Feed" resultType="com.routinergram.feed.domain.Feed">
+		SELECT
+			`FID`
+			,`image`
+			,`text`
+			,`levelValue`
+			,`UID`
+			,`ITRID`
+			,`createdAt`
+			,`updatedAt`
+		FROM `feed`
+		WHERE FID = #{FID}
+	</select>
+	
 	<select id="selectFeedToEdit" resultType="com.routinergram.feed.domain.Feed">
 		SELECT
 			`FID`

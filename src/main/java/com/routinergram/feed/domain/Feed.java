@@ -20,4 +20,6 @@ public class Feed {
 	private String nickname;
 	private String interestsName;
 	private String countedDate;
+	private int likeCount;
+	private boolean ifILiked;
 }

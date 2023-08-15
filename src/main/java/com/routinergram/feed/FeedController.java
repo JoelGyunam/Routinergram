@@ -1,5 +1,6 @@
 package com.routinergram.feed;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.routinergram.feed.domain.Feed;
 import com.routinergram.feed.service.FeedService;
@@ -25,9 +27,17 @@ public class FeedController {
 	private InterestsService interestsService;
 
 	@GetMapping()
-	public String feedMainView(Model model) {
+	public String feedMainView(@RequestParam(value="ITRID", required=false)Integer ITRID
+			,Model model
+			,HttpSession session) {
 		
-		List<Feed> feedList = feedService.listFeedsAll();
+		List<Feed> feedList = new ArrayList<>();
+		
+		if(ITRID==null) {
+			feedList = feedService.listFeedsAll((int)session.getAttribute("UID"));
+		} else {
+			feedList = feedService.listFeedsByITRID(ITRID, (int)session.getAttribute("UID"));
+		}
 		
 		List<Interests> interestList = interestsService.getInterestList();
 		
