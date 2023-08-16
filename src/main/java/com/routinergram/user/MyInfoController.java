@@ -25,7 +25,12 @@ public class MyInfoController {
 		String profileImage = imagePlaceholder.profileImageInput(UID);
 		model.addAttribute("profileImage", profileImage);
 		
-		return "/myinfo/myinfoMain";
+		return "myinfo/myinfoMain";
+	}
+	
+	@GetMapping("/editPW")
+	public String editPW() {
+		return"myinfo/editPW";
 	}
 	
 }

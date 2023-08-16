@@ -80,6 +80,32 @@ select option[value="nonselect"] {
 
 }
 
+.box {
+    width: 150px;
+    height: 150px; 
+    border-radius: 60px;
+    overflow: hidden;
+}
+
+.profile {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.small-box {
+    width: 30px;
+    height: 30px; 
+    border-radius: 60px;
+    overflow: hidden;
+}
+
+.small-profile {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
 .bottomNavText{
 	text-align: center;
 	color: white; 

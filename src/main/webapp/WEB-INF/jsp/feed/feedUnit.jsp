@@ -16,7 +16,9 @@
 		<c:forEach var="feed" items="${feedList }"> 
 			<div id="feedUnit" class="my-1">
 				<div class="d-flex align-items-center m-1">
-					<img class="mr-2" height="24" src="${feed.profileImage }">
+					<div class="mr-2 small-box d-flex justify-content-center align-items-center">
+						<img class="small-profile" height="24" src="${feed.profileImage }">
+					</div>
 					<div class="mr-2" >${feed.nickname}</div>
 					<div class="ml-auto p-2">${feed.countedDate }</div>
 				</div>
@@ -54,8 +56,10 @@
 				</div>
 				<c:forEach var="eachReply" items="${feed.replyList}" begin="0" end="2">
 				<div id="replyLine" class="d-flex p-2">
-					<img class="m-1" height="24" src="${eachReply.replyProfileImage }">
-					<div class="col-9"><b class="m-1">${eachReply.replyNickname }</b>${eachReply.replyText }</div>
+					<div class="small-box d-flex justify-content-center align-items-center">
+						<img class="small-profile m-1" height="24" src="${eachReply.replyProfileImage }">
+					</div>
+					<div class="col-9"><b class="mr-1">${eachReply.replyNickname }</b>${eachReply.replyText }</div>
 					<div class="small ml-auto text-right font-weight-bold">${eachReply.countedDate }</div>
 				</div>
 				</c:forEach>

@@ -16,13 +16,17 @@
 	<jsp:include page="/WEB-INF/jsp/gnb/header.jsp"/>
 
 	<section>
-		<div class="d-flex justify-content-around align-items-center p-3">
-			<img class="mb-2" src="/static/img/Arrow_left_black.png">
-			<h5 class="font-weight-bold">내 정보</h5>
-			<div style="width:24px;"></div>
+		<div class="p-3">
+			<h5 class="font-weight-bold text-center">내 정보</h5>
+			<hr>
 		</div>
 		<div>
-			<div class="d-flex justify-content-center p-2"> <img width="90" src="${profileImage }"> </div>
+			<div class="d-flex justify-content-center p-2">
+				<div class="box">
+					<img class="profile" src="${profileImage }">
+				</div>
+			
+			</div>
 			<div class="d-flex justify-content-center p-2"><button id="changeProfileImageBtn" class="btn btn-primary">프로필 사진 변경하기</button></div>
 			<input id="fileInput" type="file" accept="image/*" class="d-none">
 		</div>
@@ -91,6 +95,10 @@
 			
 			$("#logoutBtn").on("click",function(){
 				location.href="/main/login/logout";
+			});
+			
+			$("#editPassword").on("click",function(){
+				location.href="/main/myinfo/editPW";
 			});
 			
 			$("#changeProfileImageBtn").on("click",function(){
