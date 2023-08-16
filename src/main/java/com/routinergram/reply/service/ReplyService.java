@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.routinergram.common.DateCounter;
+import com.routinergram.common.ImagePlaceholder;
 import com.routinergram.reply.domain.Reply;
 import com.routinergram.reply.repository.ReplyRepository;
 import com.routinergram.user.service.UserNicknameService;
@@ -18,6 +19,8 @@ public class ReplyService {
 	private ReplyRepository replyRepository;
 	@Autowired
 	private UserNicknameService userNicknameService;
+	@Autowired
+	private ImagePlaceholder imagePlaceholder;
 	
 	public int deleteReply(int UID, int RPID) {
 		Reply reply = new Reply();
@@ -28,11 +31,12 @@ public class ReplyService {
 	}
 	
 	
-	public int postReply(int UID, int FID) {
+	public int postReply(int UID, int FID, String replyText) {
 		
 		Reply reply = new Reply();
 		reply.setUID(UID);
 		reply.setFID(FID);
+		reply.setReplyText(replyText);
 		return replyRepository.insertReply(reply);
 	};
 	
@@ -48,8 +52,14 @@ public class ReplyService {
 			DateCounter dataCounter = new DateCounter();
 			String countedDate = dataCounter.dateCounter(writtenDateTime);
 			replyList.get(i).setCountedDate(countedDate);
+			String replyProfileImage = imagePlaceholder.profileImageInput(replyUID);
+			replyList.get(i).setReplyProfileImage(replyProfileImage);
 		}
 		return replyList;
+	};
+	
+	public int replyCountByFID(int FID) {
+		return replyRepository.replyCountByFID(FID);
 	}
 	
 }

@@ -1,15 +1,14 @@
 package com.routinergram.activity.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.routinergram.activity.domain.UserActivity;
 import com.routinergram.activity.repository.ActivityRepository;
+import com.routinergram.common.FileManager;
 
 @Service
 public class ActivityService {
@@ -71,4 +70,5 @@ public class ActivityService {
 		}
 		return result;
 	}
+
 }

@@ -2,8 +2,10 @@ package com.routinergram.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.routinergram.common.Encrypt;
+import com.routinergram.common.FileManager;
 import com.routinergram.user.domain.Userinfo;
 import com.routinergram.user.repository.UserinfoRepository;
 
@@ -41,6 +43,16 @@ public class UserinfoService {
 	
 	public int emailDupCheck(Userinfo userinfo) {
 		return userinfoRepository.countEmail(userinfo);
+	}
+	
+	public int changeProfileImage(int UID, MultipartFile imageFile) {
+		
+		String imagePath = FileManager.saveFile(UID, imageFile);
+		Userinfo userinfo = new Userinfo();
+		userinfo.setUID(UID);
+		userinfo.setProfileImage(imagePath);
+		
+		return userinfoRepository.updateProfileImageByUID(userinfo);
 	}
 	
 }

@@ -33,4 +33,9 @@
 		WHERE RPID = #{RPID} AND UID = #{UID};
 	</delete>
 
+	<select id="replyCountByFID" parameterType="int" resultType="integer">
+		SELECT count(1) 
+		FROM `reply`
+		WHERE FID = #{FID};
+	</select>
 </mapper>

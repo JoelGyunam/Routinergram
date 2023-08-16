@@ -17,4 +17,5 @@ public class Reply {
 	
 	private String replyNickname;
 	private String countedDate;
+	private String replyProfileImage;
 }

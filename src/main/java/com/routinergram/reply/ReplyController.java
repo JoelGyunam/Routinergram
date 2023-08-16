@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.routinergram.common.ImagePlaceholder;
 import com.routinergram.reply.domain.Reply;
 import com.routinergram.reply.service.ReplyService;
 
@@ -20,6 +21,8 @@ public class ReplyController {
 
 	@Autowired
 	private ReplyService replyService;
+	@Autowired
+	private ImagePlaceholder imagePlaceholder;
 	
 	@GetMapping()
 	public String replyView(@RequestParam("FID")int FID, HttpSession session,Model model) {
@@ -28,8 +31,11 @@ public class ReplyController {
 		
 		List<Reply> replyList = replyService.GetReplyListByFID(FID);
 		
-		model.addAttribute(replyList);
+		String writerProfileImage = imagePlaceholder.profileImageInput(UID);
 		
+		model.addAttribute(replyList);
+		model.addAttribute("FID",FID);
+		model.addAttribute("writerProfileImage",writerProfileImage);
 		return "feed/reply";
 	}
 	

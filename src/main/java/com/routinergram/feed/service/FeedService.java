@@ -1,9 +1,8 @@
 package com.routinergram.feed.service;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.routinergram.activity.service.ActivityService;
 import com.routinergram.common.DateCounter;
 import com.routinergram.common.FileManager;
+import com.routinergram.common.ImagePlaceholder;
 import com.routinergram.feed.domain.Feed;
 import com.routinergram.feed.repository.FeedRepository;
 import com.routinergram.interests.service.InterestsService;
 import com.routinergram.likes.service.LikesService;
+import com.routinergram.reply.domain.Reply;
+import com.routinergram.reply.service.ReplyService;
 import com.routinergram.user.service.UserNicknameService;
 
 @Service
@@ -31,6 +33,10 @@ public class FeedService {
 	private InterestsService interestsService;
 	@Autowired
 	private LikesService likesService;
+	@Autowired
+	private ReplyService replyService;
+	@Autowired
+	private ImagePlaceholder imagePlaceholder;
 	
 	public int postFeed(int UID, MultipartFile imageFile, String text, int ITRID) {
 		int level = activityService.getActivityInfo(UID).getLevel();
@@ -51,6 +57,8 @@ public class FeedService {
 	public List<Feed> feedLister(List<Feed> feed,int thisUser){
 		List<Feed> getList = feed;
 		for(int i = 0; i < getList.size(); i++) {
+			//thisUser : 로그인한 사용자의 UID
+			//UID : 피드 게시자의 UID
 			int UID = getList.get(i).getUID();
 			int FID = getList.get(i).getFID();
 			int ITRID = getList.get(i).getITRID();
@@ -66,6 +74,19 @@ public class FeedService {
 			getList.get(i).setCountedDate(countedDate);
 			getList.get(i).setLikeCount(likeCount);
 			getList.get(i).setIfILiked(ifILiked);
+			
+			//FID를 가지고 GetReplyListByFID 통해서 댓글리스트 리턴.
+			//Feed DTO 에 List<Reply> 등록해서 셋 함.
+			//model 내 feedList 내 replyList에 넣어주기 위함.
+			List<Reply> replyList = new ArrayList<>();
+			replyList = replyService.GetReplyListByFID(FID);
+			getList.get(i).setReplyList(replyList);
+			int replyCount = replyService.replyCountByFID(FID);
+			getList.get(i).setReplyCount(replyCount);
+			
+			//프로필 이미지 null여부 확인 및 플레이스홀더 출력여부
+			String img = imagePlaceholder.profileImageInput(UID);
+			getList.get(i).setProfileImage(img);
 		}
 		return getList;
 	}
@@ -82,6 +103,12 @@ public class FeedService {
 		
 		List<Feed> getList = feedRepository.selectFeedByITRID(feed);
 		return feedLister(getList, thisUser);
+	}
+	
+	public List<Feed> listFeedsByUID(int UID) {
+		
+		List<Feed> getList = feedRepository.selectFeedListByUID(UID);
+		return feedLister(getList, UID);
 	}
 	
 

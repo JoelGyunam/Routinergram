@@ -63,56 +63,6 @@
 				$("#radio-group label").attr("class","col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white");
 				$(selectedITRBox).attr("class","col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success");
 				
-				updateFeed();
-				
-			});
-			
-			$(".like-btn").on("click",function(){
-				
-				let FID = $(this).data("feed-fid");
-				
-				let ifLiked = $(this).data("feed-ifliked");
-				
-				if(!ifLiked){
-					$.ajax({
-						type:"post"
-						,url:"/rest/feed/like"
-						,data:{
-							"FID":FID
-							,"likeCount":1
-						}
-						,success:function(data) {
-							if(data.result == "success") {
-								location.reload();
-							} else {
-								alert("좋아요 실패");
-							}
-						}
-						, error:function() {
-							alert("좋아요 에러");
-						}
-					})
-				} else{
-					$.ajax({
-						type:"post"
-						,url:"/rest/feed/like"
-						,data:{
-							"FID":FID
-							,"likeCount":-1
-						}
-						,success:function(data) {
-							if(data.result == "success") {
-								location.reload();
-							} else {
-								alert("좋아요 실패");
-							}
-						}
-						, error:function() {
-							alert("좋아요 에러");
-						}
-					})
-				}
-				
 			});
 		});
 	</script>

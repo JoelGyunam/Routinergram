@@ -17,6 +17,8 @@ public interface FeedRepository {
 	
 	public Feed selectFeedByFID(Feed feed);
 	
+	public List<Feed> selectFeedListByUID(int UID);
+	
 	public Feed selectFeedToEdit(Feed feed);
 	
 	public int updateFeed(Feed feed);

@@ -21,7 +21,7 @@
 	<section>
 		<div id="replyarea">
 			<div class="pt-1 d-flex justify-content-between align-items-center text-white">
-				<h3 class="col-1">&lt;</h3>
+				<h3 id="backBtn" class="col-1">&lt;</h3>
 				<h5>댓글</h5>
 				<h3 class="col-1"></h3>
 			</div>
@@ -32,7 +32,7 @@
 		<c:otherwise>
 			<c:forEach var="eachReply" items="${replyList}">
 			<div id="replyLine" class="d-flex p-2 text-white">
-				<img class="m-1" height="24" src="/static/img/People_circle.png">
+				<img class="m-1" height="24" src="${eachReply.replyProfileImage }">
 				<div><b class="m-1">${eachReply.replyNickname }</b>${eachReply.replyText }</div>
 			<c:choose>
 				<c:when test="${eachReply.UID eq UID}">
@@ -41,13 +41,9 @@
 				<c:otherwise>
 				<div class="small ml-auto text-right font-weight-bold">${eachReply.countedDate }</div>
 				</c:otherwise>
-				
-				</c:choose>
-				
-				
+			</c:choose>
 			</div>
 			</c:forEach>
-				
 		</c:otherwise>
 	</c:choose>
 			
@@ -55,10 +51,10 @@
 			<div id="replyWrite">
 				<div class="mt-3 ml-2 text-white">댓글을 작성해 주세요.</div>
 				<div class="d-flex algin-items-center justify-content-between">
-					<img class="ml-2 mt-2" height="24" src="/static/img/People_circle.png">
-					<textarea rows="" cols="" class="m-1 form-control"></textarea>
+					<img class="ml-2 mt-2" height="24" src="${writerProfileImage}">
+					<textarea id="replyTextarea" class="m-1 form-control"></textarea>
 					<div>
-						<button class="m-1 btn btn-primary">게시</button>
+						<button id="replySubmitBtn" class="m-1 btn btn-primary">게시</button>
 					</div>
 				</div>
 			</div>
@@ -83,6 +79,7 @@
 			var RPID = $("#deleteReplyBtn").data("rpid");
 			
 			$("#deleteReplyBtn").on("click",function(){
+				confirm("댓글을 삭제할까요?");
 				$.ajax({
 					type:"delete"
 					,url:"/rest/reply/delete"
@@ -100,7 +97,37 @@
 						alert("댓글 삭제 중 오류가 발생했어요.");
 					}
 				})
+			});
+			
+			$("#backBtn").on("click",function(){
+				history.back();
+			});
+			
+			$("#replySubmitBtn").on("click",function(){
 				
+				var FID = ${FID};
+				var UID = ${UID};
+				var replyText = $("#replyTextarea").val();
+				
+				$.ajax({
+					type:"POST"
+					,url:"/rest/reply/post"
+					,data:{
+						"FID":FID
+						,"UID":UID
+						,"replyText":replyText
+					}
+					,success:function(data){
+						if(data.result=="success"){
+							location.reload();
+						} else{
+							alert("댓글 삭제에 실패했어요.");
+						}
+					}
+					,error:function(){
+						alert("댓글 삭제 중 오류가 발생했어요.");
+					}
+				})
 			});
 			
 		});

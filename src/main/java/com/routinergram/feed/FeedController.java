@@ -50,7 +50,13 @@ public class FeedController {
 	}
 	
 	@GetMapping("/myfeed")
-	public String myfeedView() {
+	public String myfeedView(HttpSession session, Model model) {
+		int UID = (int) session.getAttribute("UID");
+		List<Feed> feedList = new ArrayList<>();
+
+		feedList = feedService.listFeedsByUID(UID);
+		model.addAttribute("feedList",feedList);
+		
 		return "feed/myfeed";
 	}
 	

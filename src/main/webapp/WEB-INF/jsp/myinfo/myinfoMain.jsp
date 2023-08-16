@@ -22,8 +22,9 @@
 			<div style="width:24px;"></div>
 		</div>
 		<div>
-			<div class="d-flex justify-content-center p-2"> <img width="90" src="/static/img/People_circle_big.png"> </div>
-			<div class="d-flex justify-content-center p-2"><button class="btn btn-primary">프로필 사진 변경하기</button></div>
+			<div class="d-flex justify-content-center p-2"> <img width="90" src="${profileImage }"> </div>
+			<div class="d-flex justify-content-center p-2"><button id="changeProfileImageBtn" class="btn btn-primary">프로필 사진 변경하기</button></div>
+			<input id="fileInput" type="file" accept="image/*" class="d-none">
 		</div>
 	
 		<div class="mt-3">
@@ -85,11 +86,47 @@
 	<script src="/static/js/only-for-user.js"></script>
 	<script>
 		$(document).ready(function(){
-
+			
+			var image = "";
 			
 			$("#logoutBtn").on("click",function(){
 				location.href="/main/login/logout";
 			});
+			
+			$("#changeProfileImageBtn").on("click",function(){
+				$("#fileInput").click();
+				var image = $("#fileInput")[0];
+			});
+			
+			$("#fileInput").on("change",function(){
+				var image = $("#fileInput")[0];
+				var formData = new FormData();
+				formData.append("image",image.files[0]);
+				
+				if(confirm("새로운 사진이 선택되었어요.\n프로필사진을 변경할까요?")){
+					$.ajax({
+						type:"post"
+						,url:"/rest/myinfo/change-image"
+						,data:formData
+						,enctype:"multipart/form-data"
+						,processData:false
+						,contentType:false
+						,success:function(data){
+							if(data.result=="success"){
+								alert("프로필 사진을 변경했어요!");
+								location.reload();
+							} else{
+								alert("프로필 사진 변경을 실패했어요.");
+							}
+						}
+						,error:function(){
+							alert("프로필 사진 변경 중에 오류가 발생했습니다.");
+						}
+					})
+				}
+			});
+			
+			
 			
 		});
 	</script>

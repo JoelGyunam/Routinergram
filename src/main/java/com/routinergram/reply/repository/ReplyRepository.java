@@ -13,4 +13,5 @@ public interface ReplyRepository {
 	public int insertReply(Reply reply);
 	public List<Reply> selectReplyListByFID(@Param("FID" )int FID);
 	public int deleteReplyByRPID(Reply reply);
+	public int replyCountByFID(@Param("FID" )int FID);
 }

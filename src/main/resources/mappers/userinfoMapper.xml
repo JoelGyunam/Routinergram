@@ -63,4 +63,12 @@
 			`UID`= #{UID} 
  	</select>
  	
+ 	<update id="updateProfileImageByUID">
+ 	
+ 	UPDATE `userinfo` 
+		SET `profileImage` = #{profileImage}
+		WHERE UID = #{UID};
+ 	
+ 	</update>
+ 	
  </mapper>

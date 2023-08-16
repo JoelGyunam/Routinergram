@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +21,13 @@ public class ReplyRestController {
 	@Autowired
 	private ReplyService replyService;
 	
-	public Map<String, String> replyPost(@RequestParam("FID")int FID, HttpSession session){
+	@PostMapping("/post")
+	public Map<String, String> replyPost(
+			@RequestParam("FID")int FID
+			,@RequestParam("replyText")String replyText
+			, HttpSession session){
 		int UID = (int) session.getAttribute("UID");
-		int result = replyService.postReply(UID, FID);
+		int result = replyService.postReply(UID, FID, replyText);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		if(result == 1) {

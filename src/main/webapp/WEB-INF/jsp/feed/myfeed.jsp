@@ -14,7 +14,6 @@
 
 <div id="wrap">
 	<jsp:include page="/WEB-INF/jsp/gnb/header.jsp"/>
-
 	<section>
 		<div class="container">
 			<div class="d-flex justify-content-center p-3">
@@ -31,42 +30,9 @@
 				<button class="col-12 btn btn-primary text-white" onclick="window.location.href='/main/feed/myfeed/upload'">나의 루틴 피드 업로드하기</button>
 			</div>
 			<hr>
-		
-			
-			<div id="feedUnit" class="my-1">
-				<div class="d-flex align-items-center m-1">
-					<img class="mr-2" height="24" src="/static/img/People_circle.png">
-					<div class="mr-2" >닉네임12345abc</div>
-					<div class="ml-auto p-2">3분 전</div>
-				</div>
-				<img class="rounded" width="100%" src="/static/img/wallpaper for a search.png">
-				<div class="p-2">
-					<div class="d-flex align-items-center mb-1">
-						<div class="small text-white bg-success rounded p-1 px-3 text-center">독서 루틴</div>
-						<div class="small text-white bg-success rounded p-1 px-3 text-center ml-1">58</div>
-						<div id="ifMine" class="small text-danger ml-auto">수정 | 삭제</div>
-					</div>
-					<div>피드폰문이 여기에 들어간다 이런식으로</div>
-				</div>
-				<div class="d-flex ml-3 align-items-center">
-					<img height="22" src="/static/img/Heart.png">
-					<img height="22" src="/static/img/Chat.png" style="margin-bottom:3px" class="ml-3" >
-				</div>
-				<div id="reply" class="d-flex p-2">
-					<img class="m-1" height="24" src="/static/img/People_circle.png">
-					<div><b class="m-1">abc123</b>피드 댓글 여기에 이렇게 들어가게 됨</div>
-					<div class="small ml-auto text-right col-3 font-weight-bold">1분 전</div>
-				</div>
-				<hr>
-			</div>
-			
-			
-			
-			
-			
+			<%@ include file="/WEB-INF/jsp/feed/feedUnit.jsp" %>
 			<div id="feedEnding" style="height:60px"></div>
 		</div>
-	
 	</section>
 </div>
 
