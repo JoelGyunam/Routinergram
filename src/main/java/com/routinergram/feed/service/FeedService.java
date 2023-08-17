@@ -17,6 +17,7 @@ import com.routinergram.feed.repository.FeedRepository;
 import com.routinergram.interests.service.InterestsService;
 import com.routinergram.likes.service.LikesService;
 import com.routinergram.reply.domain.Reply;
+import com.routinergram.reply.repository.ReplyRepository;
 import com.routinergram.reply.service.ReplyService;
 import com.routinergram.user.service.UserNicknameService;
 
@@ -132,8 +133,25 @@ public class FeedService {
 	
 	public int deleteFeed(int UID, int FID) {
 		Feed feed = new Feed();
-		feed.setUID(UID);
+		
 		feed.setFID(FID);
-		return feedRepository.deleteFeed(feed);
+		int writerID = feedRepository.selectFeedByFID(feed).getUID();
+		if(writerID != UID) {
+			return 0;
+		}
+		feed.setUID(UID);
+		
+		String feedImage = feedRepository.selectFeedByFID(feed).getImage();
+		if(feedImage == null) {
+			replyService.deleteReplyByFID(FID);
+			likesService.deleteLikesByFID(FID);
+			return feedRepository.deleteFeed(feed);
+		} else {
+			if(FileManager.deleteFile(feedImage)) {
+				replyService.deleteReplyByFID(FID);
+				likesService.deleteLikesByFID(FID);
+				return feedRepository.deleteFeed(feed);
+			} else return 0;
+		}
 	}
 }

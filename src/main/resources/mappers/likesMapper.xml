@@ -32,5 +32,10 @@
 		FROM `likes`
 		WHERE UID = #{UID} AND FID = #{FID};
 	</select>
+	
+	<delete id="deleteLikesByFID" parameterType="int">
+		DELETE FROM `likes`
+		WHERE FID = #{FID};
+	</delete>
 
 </mapper>

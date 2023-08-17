@@ -23,6 +23,16 @@
  		)
  	</insert>
  	
+ 	<update id="updatePW" parameterType="com.routinergram.user.domain.Userinfo">
+ 		UPDATE `userinfo`
+ 		SET 
+ 			`password`=#{password}
+ 			,`salt`=#{salt}
+ 			,`updatedAt` = now()
+ 		WHERE
+ 			`UID`=#{UID}
+ 	</update>
+ 	
  	<select id = "loginSelect" parameterType="map" resultType="com.routinergram.user.domain.Userinfo">
  		SELECT 
  			`UID`
@@ -66,8 +76,10 @@
  	<update id="updateProfileImageByUID">
  	
  	UPDATE `userinfo` 
-		SET `profileImage` = #{profileImage}
-		WHERE UID = #{UID};
+	SET 
+		`profileImage` = #{profileImage}
+		,`updatedAt` = now()
+	WHERE UID = #{UID};
  	
  	</update>
  	

@@ -12,4 +12,6 @@ public interface LikesRepository {
 	public Integer sumLikeCountByFID(int FID);
 	
 	public Integer selectLikesByUIDandFID(Likes likes);
+	
+	public int deleteLikesByFID(int FID);
 }

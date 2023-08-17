@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				<c:forEach var="eachReply" items="${feed.replyList}" begin="0" end="2">
-				<div id="replyLine" class="d-flex p-2">
+				<div id="replyLine" class="d-flex p-2" onclick="location.href='/main/feed/reply?FID=${feed.FID }'">
 					<div class="small-box d-flex justify-content-center align-items-center">
 						<img class="small-profile m-1" height="24" src="${eachReply.replyProfileImage }">
 					</div>

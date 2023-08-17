@@ -32,7 +32,9 @@
 		<c:otherwise>
 			<c:forEach var="eachReply" items="${replyList}">
 			<div id="replyLine" class="d-flex p-2 text-white">
-				<img class="m-1" height="24" src="${eachReply.replyProfileImage }">
+				<div class="small-box m-1 d-flex justify-content-center align-items-center">
+					<img class="small-profile" src="${eachReply.replyProfileImage }">
+				</div>
 				<div><b class="m-1">${eachReply.replyNickname }</b>${eachReply.replyText }</div>
 			<c:choose>
 				<c:when test="${eachReply.UID eq UID}">
@@ -50,8 +52,10 @@
 			
 			<div id="replyWrite">
 				<div class="mt-3 ml-2 text-white">댓글을 작성해 주세요.</div>
-				<div class="d-flex algin-items-center justify-content-between">
-					<img class="ml-2 mt-2" height="24" src="${writerProfileImage}">
+				<div class="d-flex align-items-center justify-content-between">
+					<div class="ml-2 mt-2 small-box m-1 d-flex justify-content-center align-items-center">
+						<img class="small-profile" src="${writerProfileImage}">
+					</div>
 					<textarea id="replyTextarea" class="m-1 form-control"></textarea>
 					<div>
 						<button id="replySubmitBtn" class="m-1 btn btn-primary">게시</button>
@@ -79,28 +83,39 @@
 			var RPID = $("#deleteReplyBtn").data("rpid");
 			
 			$("#deleteReplyBtn").on("click",function(){
-				confirm("댓글을 삭제할까요?");
-				$.ajax({
-					type:"delete"
-					,url:"/rest/reply/delete"
-					,data:{
-						"RPID":RPID
-					}
-					,success:function(data){
-						if(data.result=="success"){
-							location.reload();
-						} else{
-							alert("댓글 삭제에 실패했어요.");
+				if(confirm("댓글을 삭제할까요?")){
+					$.ajax({
+						type:"delete"
+						,url:"/rest/reply/delete"
+						,data:{
+							"RPID":RPID
 						}
-					}
-					,error:function(){
-						alert("댓글 삭제 중 오류가 발생했어요.");
-					}
-				})
+						,success:function(data){
+							if(data.result=="success"){
+								location.reload();
+							} else{
+								alert("댓글 삭제에 실패했어요.");
+							}
+						}
+						,error:function(){
+							alert("댓글 삭제 중 오류가 발생했어요.");
+						}
+					})
+				}
 			});
 			
 			$("#backBtn").on("click",function(){
 				history.back();
+			});
+			
+			$("#replyTextarea").on("keyup",function(){
+				var replyText = $("#replyTextarea").val();
+
+				if(replyText == ""){
+					$("#replySubmitBtn").prop("disabled",true);
+				} else {
+					$("#replySubmitBtn").prop("disabled",false);
+				}
 			});
 			
 			$("#replySubmitBtn").on("click",function(){
@@ -108,6 +123,11 @@
 				var FID = ${FID};
 				var UID = ${UID};
 				var replyText = $("#replyTextarea").val();
+				
+				if(replyText == ""){
+					alert("댓글 내용을 작성해 주세요!");
+					return;
+				}
 				
 				$.ajax({
 					type:"POST"

@@ -31,6 +31,28 @@ public class UserinfoService {
 		return userinfoRepository.insertUserinfo(userinfo);
 	}
 	
+	public int editPW(int UID, String currentPW, String changePW) {
+		
+		String email = getUserInfoByUID(UID).getEmail();
+		
+		Userinfo userinfo = new Userinfo();
+		userinfo.setEmail(email);
+		userinfo.setPassword(currentPW);
+		userinfo = loginRequest(userinfo);
+		if(userinfo.getUID()==0) {
+			return 0;
+		}
+		
+		Encrypt encrypt = new Encrypt();
+		String salt = encrypt.getSalt();
+		String encPassword = Encrypt.getEncrypt(changePW,salt);
+		
+		userinfo.setSalt(salt);
+		userinfo.setPassword(encPassword);
+		
+		return userinfoRepository.updatePW(userinfo);
+	}
+	
 	public Userinfo loginRequest(Userinfo userinfo) {
 		
 		String getSalt = userinfoRepository.selectSalt(userinfo.getEmail());

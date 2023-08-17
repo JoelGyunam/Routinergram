@@ -33,6 +33,12 @@
 		WHERE RPID = #{RPID} AND UID = #{UID};
 	</delete>
 
+	<delete id="deleteReplyByFID" parameterType="int">
+		DELETE FROM 
+			reply 
+		WHERE FID = #{FID};
+	</delete>
+
 	<select id="replyCountByFID" parameterType="int" resultType="integer">
 		SELECT count(1) 
 		FROM `reply`

@@ -47,4 +47,8 @@ public class LikesService {
 		
 		return result != null && result ==1;
 	}
+	
+	public int deleteLikesByFID(int FID) {
+		return likesRepository.deleteLikesByFID(FID);
+	}
 }

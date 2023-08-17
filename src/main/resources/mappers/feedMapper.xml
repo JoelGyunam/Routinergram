@@ -93,7 +93,7 @@
 
 	<update id="updateFeed">
 	UPDATE `feed`
-		SET `text` = #{text}
+		SET `text` = #{text}, `updatedAt` = now()
 		WHERE `FID`=#{FID} AND `UID`=#{UID}
 	</update>
 	

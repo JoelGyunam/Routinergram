@@ -10,6 +10,8 @@ public interface UserinfoRepository {
 
 	public int insertUserinfo(Userinfo userinfo);
 	
+	public int updatePW(Userinfo userinfo);
+	
 	public Userinfo loginSelect(Userinfo userinfo);
 
 	public Userinfo selectUserInfoByUID(int UID);

@@ -22,22 +22,22 @@
 			
 			<div class="mx-2">
 				<label class="mt-1">현재 비밀번호를 입력해 주세요.</label>
-				<input type="text" class="form-control">
-				<div class="text-danger small">비밀번호가 다릅니다.</div>
+				<input id="currentPW" type="text" class="form-control">
+				<div id="wrongPWnotice" class="text-danger small d-none">현재 비밀번호를 다시 확인해 주세요.</div>
 			</div>
 			<div class="mx-2">
 				<label class="mt-1">새로운 비밀번호를 설정해 주세요</label>
-				<input type="text" class="form-control">
+				<input id="changePWinput" type="text" class="form-control">
 				<div class="text-dark small">8~16자의 대소문자, 숫자, 특수문자로 조합할 수 있어요.</div>
 			</div>
 			<div class="mx-2">
 				<label class="mt-1">비밀번호 확인</label>
-				<input type="text" class="form-control">
-				<div class="text-dark small">비밀번호가 일치하지 않습니다.</div>
+				<input id="checkPWinput" type="text" class="form-control">
+				<div id="notMatchedNotice" class="text-danger small d-none">비밀번호가 일치하지 않습니다.</div>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center">
-			<button class="my-2 btn btn-primary text-white">비밀번호 변경하기</button>
+			<button id="editReqBtn" class="my-2 btn btn-primary text-white" disabled>비밀번호 변경하기</button>
 		</div>
 	
 	</section>
@@ -53,6 +53,106 @@
     	var UID = '<%= session.getAttribute("UID") %>';
 	</script>
 	<script src="/static/js/only-for-user.js"></script>
+	
+	<script>
+		$(document).ready(function(){
+			
+			var currentPW = $("#currentPW").val();
+			var currentMatch = false;
+			var changePW = $("#changePWinput").val();
+			var checkPW = $("#checkPWinput").val();
+			
+	        function pwRegCheck(password) {
+	        	var regex = /^[A-Za-z\d@$!%*?&]{8,16}$/;
+				if (!regex.test(password)){
+					return false;
+				}
+				else {
+					return true;
+				}
+	        };
+			
+			 $("#changePWinput, #checkPWinput").on("change",function(){
+				changePW = $("#changePWinput").val();
+				checkPW = $("#checkPWinput").val();
+				
+				if(changePW!=checkPW){
+					$("#notMatchedNotice").removeClass("d-none");
+					$("#editReqBtn").prop("disabled",true);
+				}else{
+					$("#notMatchedNotice").addClass("d-none");
+					$("#editReqBtn").prop("disabled",false);
+				}
+			})
+			
+			
+			$("#currentPW").on("change",function(){
+				currentPW = $("#currentPW").val();
+				$.ajax({
+					type:"post"
+					,url:"/rest/myinfo/editPW/pwChecker"
+					,data:{"password":currentPW}
+					,success:function(data){
+						if(data.ifMatch){
+							$("#wrongPWnotice").addClass("d-none");
+							currentMatch = true;
+						} else{
+							$("#wrongPWnotice").removeClass("d-none");
+							currentMatch = false;
+						}
+					}
+				})
+			})
+			
+			$("#editReqBtn").on("click",function(){
+				
+				if(!currentMatch){
+					alert("현재 비밀번호를 확인해 주세요.");
+					return;
+				}
+				
+				if(changePW != checkPW){
+					alert("새 비밀번호가 일치하지 않아요.");
+					return;
+				}
+				
+				if(changePW == currentPW){
+					alert("현재 사용중인 비밀번호로는 바꿀 수 없어요.");
+					return;
+				}
+				
+				if(!pwRegCheck(changePW)){
+					alert("새로운 비밀번호의 형식을 확인해 주세요");
+					return;
+				}
+				
+				if(confirm("비밀번호를 변경할까요?")){
+					
+					$.ajax({
+						type:"put"
+						,url:"/rest/myinfo/editPW/submit"
+						,data:{
+							"currentPW":currentPW
+							,"changePW":changePW
+						}
+						,success:function(data){
+							if(data.result=="success"){
+								alert("비밀번호가 성공적으로 변경되었어요.");
+								location.reload();
+							} else{
+								alert("비밀번호 변경에 실패했어요.");
+							}
+						}
+						,error:function(){
+							alert("비밀번호 변경 중 오류가 발생했어요.");
+						}
+					})
+					
+				}
+				
+			})
+		})
+	</script>
 	
 </body>
 </html>

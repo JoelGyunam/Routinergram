@@ -30,6 +30,10 @@ public class ReplyService {
 		return replyRepository.deleteReplyByRPID(reply);
 	}
 	
+	public int deleteReplyByFID(int FID) {
+		return replyRepository.deleteReplyByFID(FID);
+	}
+	
 	
 	public int postReply(int UID, int FID, String replyText) {
 		

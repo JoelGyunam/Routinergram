@@ -159,6 +159,7 @@
 			$("#passwordConfirm").on("keyup",function(){
 				password = $("#password").val();
 				passwordConfirm = $("#passwordConfirm").val();
+				
 				if(password!=passwordConfirm){
 					$("#passwordValidFailAlert").show();
 					$("#passwordValidSuccessAlert").hide();
@@ -167,6 +168,7 @@
 					$("#passwordValidFailAlert").hide();
 					$("#passwordValidSuccessAlert").show();
 				}
+				
 			});
 			
 			$("#emailSelect").on("change",function(){
@@ -256,9 +258,15 @@
 					return;
 				}
 				if(password!=passwordConfirm){
-					alert("비밀번호가 일치하지 않습니다. \n다시 확인해 주세요.");
+					alert("비밀번호가 일치하지 않습니다.\n다시 확인해 주세요.");
 					return;
 				}
+				
+				if(!pwRegCheck(password)){
+					alert("잘못된 비밀번호 형식입니다.\n다시 확인해 주세요.");
+					return;					
+				}
+				
 				if(nickname==""){
 					alert("닉네임을 입력해 주세요.");
 					return;

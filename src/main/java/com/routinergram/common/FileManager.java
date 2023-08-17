@@ -37,4 +37,33 @@ public class FileManager {
 		
 		return "/images" + directoryName + files.getOriginalFilename();
 	};
+	
+	public static boolean deleteFile(String filePath) {
+		if(filePath=="") {
+			return false;
+		}
+		
+		String fullFilePath = FILE_UPLOAD_PATH + filePath.replace("/images", "");
+		
+		Path path = Paths.get(fullFilePath);
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		Path dirPath = path.getParent();
+		if(Files.exists(dirPath)) {
+			try {
+				Files.delete(dirPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
 }
