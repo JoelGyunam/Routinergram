@@ -52,7 +52,7 @@
 					</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="mt-1 px-1 small">${eachNoti.messageBody }</div>
+				<div class="mt-1 px-1 small">${eachNoti.messageBody}</div>
 				<hr>
 			</div>		
 			</c:forEach>

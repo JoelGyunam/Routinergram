@@ -54,7 +54,7 @@ public class ReplyService {
 		int writerUID = feedDetourService.selectFeedByFID(FID).getUID();
 		int RPID = reply.getRPID();
 		if(result == 1) {
-			notificationService.addNotificationLine(UID, writerUID, "RPID", RPID);
+			notificationService.addNotificationLine(writerUID, UID, "RPID", RPID);
 		}
 		
 		return result;

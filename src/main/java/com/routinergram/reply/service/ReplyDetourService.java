@@ -14,9 +14,9 @@ public class ReplyDetourService {
 	
 	
 	public Reply getReplyByFID(int FID) {
-		if(replyRepository.selectReplyListByFID(FID).size() == 0) {
+		if(replyRepository.selectReplyByRPID(FID) == null) {
 			return null;
 		}
-		return replyRepository.selectReplyListByFID(FID).get(0);
+		return replyRepository.selectReplyByRPID(FID);
 	}
 }

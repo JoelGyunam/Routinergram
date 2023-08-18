@@ -42,7 +42,7 @@ public class NotificationService {
 				notificationDTO.setMessage("내 게시글에 좋아요를 눌러줬어요!"); // 좋아요 눌렀음 메세지 DTO 세팅
 			} else if(forID.equals("RPID")) {
 				notificationDTO.setMessage("내 게시글에 댓글을 달았어요!"); // 좋아요 눌렀음 메세지 DTO 세팅
-			//	notificationDTO.setMessageBody(replyDetourService.getReplyByFID(ofID).getReplyText());
+				notificationDTO.setMessageBody(replyDetourService.getReplyByFID(ofID).getReplyText());
 			};
 			resultList.add(notificationDTO);
 		}

@@ -11,7 +11,8 @@ import com.routinergram.reply.domain.Reply;
 public interface ReplyRepository {
 
 	public int insertReply(Reply reply);
-	public List<Reply> selectReplyListByFID(@Param("FID" )int FID);
+	public List<Reply> selectReplyListByFID(int FID);
+	public Reply selectReplyByRPID(int RPID);
 	public int deleteReplyByRPID(Reply reply);
 	public int deleteReplyByFID(int FID);
 	public int replyCountByFID(@Param("FID" )int FID);
