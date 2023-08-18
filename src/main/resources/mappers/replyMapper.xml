@@ -4,7 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.routinergram.reply.repository.ReplyRepository">
 
-	<insert id="insertReply">
+	<insert id="insertReply" useGeneratedKeys="true" keyProperty="RPID">
 		INSERT INTO `reply`	(`replyText`,`FID`,`UID`)
 		VALUE
 		(

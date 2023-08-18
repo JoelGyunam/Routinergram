@@ -1,4 +1,4 @@
-package com.routinergram.likes.domain;
+package com.routinergram.notification.domain;
 
 import java.time.ZonedDateTime;
 
@@ -7,15 +7,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Likes {
+public class Notification {
 
-	private int LKID;
+	private int notiID;
 	private int UID;
-	private int FID;
-	private int writerID;
-	private int likeCount;
+	private int writerUID;
+	private String forID;
+	private int ofID;
+	private int seen;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
 	
-	private String writerNickname;
 }

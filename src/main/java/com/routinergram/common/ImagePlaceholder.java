@@ -1,11 +1,11 @@
 package com.routinergram.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.routinergram.user.repository.UserinfoRepository;
 
-@Service
+@Component
 public class ImagePlaceholder {
 
 	@Autowired

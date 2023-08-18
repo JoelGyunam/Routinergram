@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.routinergram.notification.repository.NotificationRepository">
+	<select id="selectNotificationListByUID" parameterType="int" resultType="com.routinergram.notification.domain.Notification">
+		SELECT
+			`notiID`
+			,`UID`
+			,`writerUID`
+			,`forID`
+			,`ofID`
+			,`seen`
+			,`createdAt`
+			,`updatedAt`
+		FROM `notification`
+		WHERE `UID` = #{UID}
+		ORDER BY `notiID` DESC
+	</select>
+
+	<insert id="insertNotificationFor" parameterType="com.routinergram.notification.domain.Notification">
+		INSERT INTO `notification`
+			(
+			`UID`
+			,`writerUID`
+			,`forID`
+			,`ofID`
+			)
+		VALUE
+			(
+			#{UID}
+			,#{writerUID}
+			,#{forID}
+			,#{ofID}
+			)
+	</insert>
+
+	<update id="updateSeen" parameterType="int">
+		UPDATE `notification`
+		SET `seen` = 0
+		WHERE `UID` = #{UID}
+	</update>
+	
+	<select id="countUnseen" parameterType="int" resultType="int">
+		SELECT COUNT(1)
+		FROM `notification`
+		WHERE
+			UID = #{UID} AND seen = '1'
+	</select>
+
+</mapper>
+

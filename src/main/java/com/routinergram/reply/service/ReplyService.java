@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.routinergram.common.DateCounter;
 import com.routinergram.common.ImagePlaceholder;
+import com.routinergram.feed.service.FeedDetourService;
+import com.routinergram.notification.service.NotificationService;
 import com.routinergram.reply.domain.Reply;
 import com.routinergram.reply.repository.ReplyRepository;
 import com.routinergram.user.service.UserNicknameService;
@@ -21,6 +23,10 @@ public class ReplyService {
 	private UserNicknameService userNicknameService;
 	@Autowired
 	private ImagePlaceholder imagePlaceholder;
+	@Autowired
+	private NotificationService notificationService;
+	@Autowired
+	private FeedDetourService feedDetourService;
 	
 	public int deleteReply(int UID, int RPID) {
 		Reply reply = new Reply();
@@ -41,7 +47,17 @@ public class ReplyService {
 		reply.setUID(UID);
 		reply.setFID(FID);
 		reply.setReplyText(replyText);
-		return replyRepository.insertReply(reply);
+		
+		int result = replyRepository.insertReply(reply);
+		
+		//댓글 작성 시 해당 글의 작성자의 노티피케이션 테이블에 인서트
+		int writerUID = feedDetourService.selectFeedByFID(FID).getUID();
+		int RPID = reply.getRPID();
+		if(result == 1) {
+			notificationService.addNotificationLine(UID, writerUID, "RPID", RPID);
+		}
+		
+		return result;
 	};
 	
 	public List<Reply> GetReplyListByFID(int FID){
@@ -61,6 +77,7 @@ public class ReplyService {
 		}
 		return replyList;
 	};
+
 	
 	public int replyCountByFID(int FID) {
 		return replyRepository.replyCountByFID(FID);
