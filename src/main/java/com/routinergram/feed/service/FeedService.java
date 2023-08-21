@@ -112,7 +112,21 @@ public class FeedService {
 		return feedLister(getList, UID);
 	}
 	
-
+	public Feed getFeedByFID(int FID, int thisUser) {
+		
+		List<Feed> feedList = new ArrayList<>();
+		Feed feed = new Feed();
+		feed.setFID(FID);
+		
+		feed = feedRepository.selectFeedByFID(feed);
+		feedList.add(feed);
+		
+		if(feedList.size()==0) {
+			return null;
+		}
+		
+		return feedLister(feedList, thisUser).get(0);
+	}
 	
 	public Feed getFeedToEdit(int UID, int FID) {
 		

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.routinergram.common.DateCounter;
+import com.routinergram.likes.repository.LikesRepository;
 import com.routinergram.notification.domain.Notification;
 import com.routinergram.notification.dto.NotificationDTO;
 import com.routinergram.notification.repository.NotificationRepository;
@@ -22,6 +23,8 @@ public class NotificationService {
 	private ReplyDetourService replyDetourService;
 	@Autowired
 	private UserNicknameService userNicknameService;
+	@Autowired
+	private LikesRepository likesRepository;
 	
 	public List<NotificationDTO> getNotificationsByUID(int UID){
 		
@@ -40,9 +43,12 @@ public class NotificationService {
 			
 			if(forID.equals("LKID")) {
 				notificationDTO.setMessage("내 게시글에 좋아요를 눌러줬어요!"); // 좋아요 눌렀음 메세지 DTO 세팅
+				notificationDTO.setFID(likesRepository.selectLikeByLKID(ofID).getFID());
+				
 			} else if(forID.equals("RPID")) {
 				notificationDTO.setMessage("내 게시글에 댓글을 달았어요!"); // 좋아요 눌렀음 메세지 DTO 세팅
-				notificationDTO.setMessageBody(replyDetourService.getReplyByFID(ofID).getReplyText());
+				notificationDTO.setMessageBody(replyDetourService.getReplyByRPID(ofID).getReplyText());
+				notificationDTO.setFID(replyDetourService.getReplyByRPID(ofID).getFID());
 			};
 			resultList.add(notificationDTO);
 		}

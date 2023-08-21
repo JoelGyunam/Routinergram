@@ -15,14 +15,14 @@
 	<c:otherwise>
 		<c:forEach var="feed" items="${feedList }"> 
 			<div id="feedUnit" class="my-1">
-				<div class="d-flex align-items-center m-1">
+				<div class="callModal d-flex align-items-center m-1" data-get-feedid="${feed.FID}">
 					<div class="mr-2 small-box d-flex justify-content-center align-items-center">
-						<img class="small-profile" height="24" src="${feed.profileImage }">
+						<img class="small-profile" height="24" src="${feed.profileImage }" data-feed-profileimage="${feed.profileImage }">
 					</div>
 					<div class="mr-2" >${feed.nickname}</div>
 					<div class="ml-auto p-2">${feed.countedDate }</div>
 				</div>
-				<img class="rounded" width="100%" src="${feed.image}">
+				<img class="rounded callModal" width="100%" src="${feed.image}" data-get-feedid="${feed.FID}">
 				<div class="p-2">
 					<div class="d-flex align-items-center mb-1">
 						<div class="small text-white bg-success rounded p-1 px-3 text-center">${feed.interestsName }</div>
@@ -35,7 +35,7 @@
 						</c:when>
 					</c:choose>
 					</div>
-					<div>${feed.text}</div>
+					<div data-feed-text="${feed.text}">${feed.text}</div>
 				</div>
 				<div class="d-flex ml-3 align-items-center">
 					<div class="text-center p-1">
@@ -69,11 +69,13 @@
 	</c:otherwise>
 	</c:choose>
 		</div>	
+		
 
 		
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
+	
 	$(".like-btn").on("click",function(){
 		
 		let FID = $(this).data("feed-fid");
@@ -122,6 +124,85 @@ $(document).ready(function(){
 		
 	});
 	
-})
+/**	$(".callModal").on("click",function(){
+		var getFeedID = $(this).data("get-feedid");
+		var modalIfILiked = "";
+		var modalReplyList = "";
+		$.ajax({
+			url:"/rest/getFeedData"
+			,type:"post"
+			,data:{"FID":getFeedID}
+			,success:function(data){
 
+				var modalIfILiked = modalIfILiked(data.ifILiked);
+				var modalReplyList = modalReplyList(data.replyList);
+				console.log(data.replyList);
+				
+				$("#modalProfileImage").attr('src',data.profileImage);
+				$("#modalGoToReplyPage").attr('onclick',"location.href='/main/feed/reply?FID=" + getFeedID + "'");
+				
+				$("#modalCountedDate").html(data.countedDate);
+				$("#modalNickname").html(data.nickname);
+				$("#modalImage").attr('src',data.image);
+				$("#modalInterestsName").html(data.interestsName);
+				$("#modalLevelValue").html(data.levelValue);
+				$("#modalText").html(data.text);
+				$("#modalLikeCount").html(data.likeCount);
+				$("#modalReplyCount").html(data.replyCount);
+				$("#modalIfILiked").html(modalIfILiked);
+				$("#modalReplyList").html(modalReplyList);
+				
+				var modalReplyList = data.replyList;
+				
+				function modalIfILiked(ifILiked){
+					var html = "";
+					if(ifILiked){
+						html = "<h5 id='modal' data-feed-fid='"+getFeedID+"' data-feed-ifliked='"+ifILiked+"' class='like-btn mx-2 bi bi-heart-fill text-center text-danger'></h5>";
+					} else{
+						html = "<h5 id='modal' data-feed-fid='"+getFeedID+"' data-feed-ifliked='"+ifILiked+"' class='like-btn mx-2 bi bi-heart text-center'></h5>";
+					}
+					return html;
+				}
+				
+				function modalReplyList(replyList){
+					var html = "";
+					for(var i = 0; i < replyList.length; i++){
+						var eachReply = replyList[i];
+						var eachFID = eachReply.fid;
+						var eachReplyProfileImage = eachReply.replyProfileImage;
+						var eachReplyNickname = eachReply.replyNickname;
+						var eachReplyText = eachReply.replyText;
+						var eachCountedDate = eachReply.countedDate;
+						
+						html += "<div id='replyLine" + i + "' class='d-flex p-2' onclick='location.href='/main/feed/reply?FID=" + eachFID +"'>";
+						html += "\n";
+						html += "	<div class='small-box d-flex justify-content-center align-items-center'>";
+						html += "\n";
+						html += "		<img class='small-profile m-1' height='24' src='" + eachReplyProfileImage + "'>";
+						html += "\n";
+						html += "	</div>";
+						html += "\n";
+						html += "	<div class='col-9'><b class='mr-1'>"+eachReplyNickname+"</b>" + eachReplyText +"</div>";
+						html += "\n";
+						html += "	<div class='small ml-auto text-right font-weight-bold'>" + eachCountedDate + "</div>";
+						html += "\n";
+						html += "</div>";
+						html += "\n";
+					}
+					return html;
+				}
+				
+				$("#modalBtn").click();
+			}
+		})
+	});
+	**/
+})
 </script>
+
+<script src="/static/js/callModal.js"></script>
+<jsp:include page="/WEB-INF/jsp/feed/feedmodal.jsp"/>
+
+ <%--
+  <jsp:include page="/WEB-INF/jsp/feed/feedmodal.jsp"/>
+  --%>

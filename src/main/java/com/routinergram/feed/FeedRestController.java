@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.routinergram.feed.domain.Feed;
 import com.routinergram.feed.service.FeedService;
-import com.routinergram.interests.domain.Interests;
 import com.routinergram.interests.service.InterestsService;
 import com.routinergram.user.service.UserinfoService;
 
@@ -30,15 +29,12 @@ public class FeedRestController {
 	private FeedService feedService;
 	@Autowired
 	private UserinfoService userinfoService;
-	@Autowired
-	private InterestsService interestsService;
 	
 	@GetMapping("/loadFeed")
 	public List<Feed> loadFeed(
 			@RequestParam(value="ITRID", required=false)Integer ITRID
 			,Model model
 			,HttpSession session){
-		Map<String, Object> responseData = new HashMap<>();
 		
 		List<Feed> feedList = new ArrayList<>();
 		
@@ -51,6 +47,15 @@ public class FeedRestController {
 		return feedList;
 	}
 	
+	@PostMapping("/getFeedData")
+	public Feed GetFeedData(@RequestParam("FID")int FID, HttpSession session, Model model) {
+		int UID = (int) session.getAttribute("UID");
+		
+		Feed feed = feedService.getFeedByFID(FID,UID);
+		model.addAttribute("modal", feed);
+		
+		return feed;
+	}
 	
 	@PostMapping("/myfeed/upload/submit")
 	public Map<String, String> postFeed(

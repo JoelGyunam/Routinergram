@@ -24,5 +24,6 @@ public class NotificationDTO {
 	private String message;
 	private String messageBody;
 	private int ifSeen;
+	private int FID;
 	
 }

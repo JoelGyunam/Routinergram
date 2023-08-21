@@ -18,9 +18,7 @@
 	<jsp:include page="/WEB-INF/jsp/gnb/headerBack.jsp"/>
 
 	<section>
-		
 		<div class="container p-3">
-		
 			<div>
 				<h5 class="text-center font-weight-bold">알림센터</h5>
 				<c:choose>
@@ -34,35 +32,58 @@
 				<hr>
 			</div>
 			
+			<div id="newNoti">
 			<c:forEach var="eachNoti" items="${notificationList }">
-			<div>
-				<div class="d-flex justify-content-between">
-					<div class="font-weight-bold">${eachNoti.writerNickname }</div>
-					<div>${eachNoti.countedDate }</div>
-				</div>
-				<div class="d-flex justify-content-around">
-					<div class="mr-auto"></div>
-					<div class="text-center">${eachNoti.message }</div>
-					<c:choose>
-					<c:when test="${eachNoti.ifSeen eq '1'}">
-					<div class="text-danger small ml-auto">New</div>
-					</c:when>
-					<c:otherwise>
-					<div class="text-danger small ml-auto"></div>
-					</c:otherwise>
-					</c:choose>
-				</div>
-				<div class="mt-1 px-1 small">${eachNoti.messageBody}</div>
-				<hr>
-			</div>		
+			<c:choose>
+			<c:when test="${eachNoti.ifSeen eq '1'}">
+				<div class="callModal" data-get-feedid="${eachNoti.FID}">
+					<div class="d-flex justify-content-between">
+						<div class="font-weight-bold">${eachNoti.writerNickname }</div>
+						<div>${eachNoti.countedDate }</div>
+					</div>
+					<div class="d-flex justify-content-around">
+						<div class="mr-auto"></div>
+						<div class="text-center">${eachNoti.message }</div>
+						<c:choose>
+						<c:when test="${eachNoti.ifSeen eq '1'}">
+						<div class="text-danger small ml-auto">New</div>
+						</c:when>
+						<c:otherwise>
+						<div class="text-danger small ml-auto"></div>
+						</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="mt-1 px-1 small">${eachNoti.messageBody}</div>
+					<hr>
+				</div>		
+			</c:when>
+			</c:choose>
 			</c:forEach>
+			</div>
 			
+			<div id="prevNoti">
+				<div class="text-right small font-weight-bold"> 이전 알림 </div><hr>
+				<c:forEach var="eachNoti" items="${notificationList }">
+				<c:choose>
+				<c:when test="${eachNoti.ifSeen eq '0' }">
+				<div class="callModal" data-get-feedid="${eachNoti.FID}">
+					<div class="d-flex justify-content-between">
+						<div class="font-weight-bold">${eachNoti.writerNickname }</div>
+						<div>${eachNoti.countedDate }</div>
+					</div>
+					<div class="d-flex justify-content-around">
+						<div class="text-center">${eachNoti.message }</div>
+					</div>
+					<div class="mt-1 px-3 small">${eachNoti.messageBody}</div>
+					<hr>
+				</div>		
+				</c:when>
+				</c:choose>
+				</c:forEach>
+			</div>
 		</div>
-	
-	
 	</section>
 </div>
-
 
 	<jsp:include page="/WEB-INF/jsp/gnb/bottomNav.jsp"/>
 	
@@ -89,4 +110,6 @@
 	</script>
 	
 </body>
+<script src="/static/js/callModal.js"></script>
+<jsp:include page="/WEB-INF/jsp/feed/feedmodal.jsp"/>
 </html>

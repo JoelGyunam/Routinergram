@@ -13,10 +13,10 @@ public class ReplyDetourService {
 	private ReplyRepository replyRepository;
 	
 	
-	public Reply getReplyByFID(int FID) {
-		if(replyRepository.selectReplyByRPID(FID) == null) {
+	public Reply getReplyByRPID(int RPID) {
+		if(replyRepository.selectReplyByRPID(RPID) == null) {
 			return null;
 		}
-		return replyRepository.selectReplyByRPID(FID);
+		return replyRepository.selectReplyByRPID(RPID);
 	}
 }
