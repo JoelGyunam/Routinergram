@@ -1,5 +1,7 @@
 package com.routinergram.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,17 @@ public class UserNicknameService {
 	
 	public int resetNickname(int NickID) {
 		return userNicknameRepository.deleteNicknameByNickID(NickID);
+	}
+	
+	public int deletePreviousNicknamesByUID(int UID) {
+		List<UserNickname> nicknameList = userNicknameRepository.selectNicknameListByUID(UID);
+		int resultSum = 0;
+//		if(nicknameList.size() <= 1) {
+//			return 0;
+//		}
+		for(int i = 1; i < nicknameList.size(); i++) {
+			resultSum += userNicknameRepository.deleteNicknameByNickID(nicknameList.get(i).getNickID());
+		}
+		return resultSum;
 	}
 }

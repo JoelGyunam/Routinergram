@@ -21,4 +21,10 @@ public interface UserinfoRepository {
 	public String selectSalt(@Param("email") String email);
 	
 	public int updateProfileImageByUID(Userinfo userinfo);
+	
+	public int updateNickIDByUID(Userinfo userinfo);
+	
+	public int deleteProfileImage(int UID);
+	
+	public int updateITRIDbyUID(Userinfo userinfo);
 }

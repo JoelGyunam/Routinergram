@@ -37,11 +37,22 @@
  		SELECT `nickname`
  		FROM `usernickname`
  		WHERE UID = #{UID}
+ 		ORDER BY `NickID` DESC
+ 		LIMIT 1;
+ 		
  	</select>
  	
- 	<delete id="deleteNicknameByNickID" parameterType="map">
+ 	<delete id="deleteNicknameByNickID" parameterType="int">
 	 	DELETE FROM `usernickname`
 		WHERE `NickID` = #{NickID};
  	</delete>
+ 	
+ 	<select id="selectNicknameListByUID" parameterType="int" resultType="com.routinergram.user.domain.UserNickname">
+ 		SELECT 
+ 			`NickID`,`nickname`,`UID`,`createdAt`,`updatedAt`
+ 		FROM `usernickname`
+ 		WHERE `UID` = ${UID}
+ 		ORDER BY `NickID` DESC;
+ 	</select>
  	
  </mapper>

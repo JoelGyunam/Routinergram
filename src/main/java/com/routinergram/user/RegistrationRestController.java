@@ -28,6 +28,16 @@ public class RegistrationRestController {
 	@Autowired
 	private UserNicknameService userNicknameService;
 	
+	@GetMapping("/deletePrevNicksWhenChangesNick")
+	private Map<String, Integer> deletePrevNicks(HttpSession session){
+		int UID = (int) session.getAttribute("UID");
+		int result = userNicknameService.deletePreviousNicknamesByUID(UID);
+		Map<String,Integer> resultMap = new HashMap<>();
+		resultMap.put("deletedCounts", result);
+		return resultMap;
+	}
+	
+	
 	@GetMapping("/submit/reset-nickname-at-dupCheck")
 	public Map<String, String> resetNickAtDupCheck(@RequestParam("NickID") int NickID){
 		int result = userNicknameService.resetNickname(NickID);

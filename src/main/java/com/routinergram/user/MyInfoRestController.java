@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,37 @@ public class MyInfoRestController {
 	
 	@Autowired
 	private UserinfoService userinfoService;
+	
+	@PostMapping("/delete-image")
+	public Map<String, String> deleteProfileImage(HttpSession session){
+		int UID = (int) session.getAttribute("UID");
+		int result = userinfoService.deleteProfileImage(UID);
+		Map<String, String> resultMap = new HashMap<>();
+		if(result == 1) {
+			resultMap.put("result","success");
+		} else {
+			resultMap.put("result","fail");
+		}
+		return resultMap;
+	}
+	
+	@GetMapping("/updateNickID")
+	public Map<String, String> updateNickID(@RequestParam("NickID")int NickID, HttpSession session){
+		int UID = (int) session.getAttribute("UID");
+		int result = userinfoService.updateNickIDbyUID(NickID, UID);
+		Map<String, String> resultMap = new HashMap<>();
+		if(result == 1) {
+			resultMap.put("result","success");
+			session.removeAttribute("nickname");
+			session.removeAttribute("NickID");
+//			session.setAttribute("nickname", userNicknameService.getUserNicknameByUID(UID));
+			session.setAttribute("NickID", NickID);
+		} else {
+			resultMap.put("result","fail");
+		}
+		return resultMap;
+		
+	}
 	
 	@PostMapping("/change-image")
 	public Map<String, String> changeProfileImage(
@@ -71,6 +103,19 @@ public class MyInfoRestController {
 			,HttpSession session){
 		int UID = (int) session.getAttribute("UID");
 		int result = userinfoService.editPW(UID, currentPW, changePW);
+		Map<String, String> resultMap = new HashMap<>();
+		if(result == 1) {
+			resultMap.put("result","success");
+		} else {
+			resultMap.put("result","fail");
+		}
+		return resultMap;
+	}
+	
+	@PutMapping("/edit-routine/submit")
+	public Map<String, String> changeITRID(@RequestParam("ITRID")int ITRID, HttpSession session){
+		int UID = (int) session.getAttribute("UID");
+		int result = userinfoService.updateITRIDbyUID(UID, ITRID);
 		Map<String, String> resultMap = new HashMap<>();
 		if(result == 1) {
 			resultMap.put("result","success");

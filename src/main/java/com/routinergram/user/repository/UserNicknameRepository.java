@@ -1,5 +1,7 @@
 package com.routinergram.user.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +21,7 @@ public interface UserNicknameRepository {
 	public String selectNicknameByUID(int UID);
 	
 	public int deleteNicknameByNickID(int NickID);
+	
+	public List<UserNickname> selectNicknameListByUID(int UID);
 	
 }

@@ -47,6 +47,7 @@ public class LoginRestController {
 			HttpSession session = request.getSession();
 			session.setAttribute("UID", userinfo.getUID());
 			session.setAttribute("nickname", nickname);
+			session.setAttribute("NickID", userinfo.getNickID());
 			session.setAttribute("email", userinfo.getEmail());
 		} else {
 			loginResultMap.put("result", "fail");

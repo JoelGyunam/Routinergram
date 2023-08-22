@@ -15,6 +15,14 @@ public class UserinfoService {
 	@Autowired
 	private UserinfoRepository userinfoRepository;
 	
+	public int updateNickIDbyUID(int NickID, int UID) {
+		Userinfo userinfo = new Userinfo();
+		userinfo.setUID(UID);
+		userinfo.setNickID(NickID);
+		
+		return userinfoRepository.updateNickIDByUID(userinfo);
+	}
+	
 	public Userinfo getUserInfoByUID(int UID) {
 		return userinfoRepository.selectUserInfoByUID(UID);
 	}
@@ -75,6 +83,21 @@ public class UserinfoService {
 		userinfo.setProfileImage(imagePath);
 		
 		return userinfoRepository.updateProfileImageByUID(userinfo);
+	}
+	
+	public int deleteProfileImage(int UID) {
+		String imagePath = getUserInfoByUID(UID).getProfileImage();
+		int updateResult = userinfoRepository.deleteProfileImage(UID);
+		boolean deleteResult = FileManager.deleteFile(imagePath);
+		return updateResult;
+		
+	}
+	
+	public int updateITRIDbyUID(int UID, int ITRID) {
+		Userinfo userinfo = new Userinfo();
+		userinfo.setUID(UID);
+		userinfo.setITRID(ITRID);
+		return userinfoRepository.updateITRIDbyUID(userinfo);
 	}
 	
 }

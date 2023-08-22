@@ -33,6 +33,15 @@
  			`UID`=#{UID}
  	</update>
  	
+ 	<update id="updateNickIDByUID" parameterType="com.routinergram.user.domain.Userinfo">
+ 	 		UPDATE `userinfo`
+ 		SET 
+ 			`NickID`=#{NickID}
+ 			,`updatedAt` = now()
+ 		WHERE
+ 			`UID`=#{UID}
+ 	</update>
+ 	
  	<select id = "loginSelect" parameterType="map" resultType="com.routinergram.user.domain.Userinfo">
  		SELECT 
  			`UID`
@@ -75,12 +84,28 @@
  	
  	<update id="updateProfileImageByUID">
  	
- 	UPDATE `userinfo` 
-	SET 
-		`profileImage` = #{profileImage}
-		,`updatedAt` = now()
-	WHERE UID = #{UID};
+	 	UPDATE `userinfo` 
+		SET 
+			`profileImage` = #{profileImage}
+			,`updatedAt` = now()
+		WHERE UID = #{UID};
+	 	
+ 	</update>
  	
+ 	<update id="deleteProfileImage" parameterType="int">
+		UPDATE `userinfo`
+		SET
+			`profileImage` = null
+			,`updatedAt` = now()
+		WHERE UID = #{UID}
+ 	</update>
+ 	
+ 	<update id="updateITRIDbyUID" parameterType="com.routinergram.user.domain.Userinfo">
+		UPDATE `userinfo`
+		SET
+			`ITRID` = #{ITRID}
+			,`updatedAt` = now()
+		WHERE UID = #{UID}
  	</update>
  	
  </mapper>
