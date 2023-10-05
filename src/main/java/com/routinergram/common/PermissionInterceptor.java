@@ -21,6 +21,7 @@ public class PermissionInterceptor implements HandlerInterceptor{
 		Integer UID =  (Integer) session.getAttribute("UID");
 		String uri = request.getRequestURI();
 		// 로그인이 안된 상태에서 /main 으로 시작되는 페이지는 접근 하지 못하고, 로그인 페이지로 이동.
+		
 		if(UID == null) {
 			if(uri.startsWith("/main")) {
 				//리다이렉트
