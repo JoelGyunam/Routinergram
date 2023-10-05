@@ -108,4 +108,20 @@
 		WHERE UID = #{UID}
  	</update>
  	
+ 	<select id="selectByEmail" parameterType="string" resultType="com.routinergram.user.domain.Userinfo">
+ 		SELECT 
+ 			`UID`
+ 			,`email`
+ 			,`password`
+ 			,`salt`
+ 			,`NickID`
+ 			,`ITRID`
+ 			,`profileImage`
+ 			,`createdAt`
+ 			,`updatedAt`
+		FROM `userinfo`
+		WHERE 
+			`email`= #{email} 
+ 	</select>
+ 	
  </mapper>

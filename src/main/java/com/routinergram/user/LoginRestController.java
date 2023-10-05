@@ -53,5 +53,22 @@ public class LoginRestController {
 			loginResultMap.put("result", "fail");
 		}
 		return loginResultMap;
+	};
+	
+	@PostMapping("/tester")
+	public Map<String,String> testerLogin(HttpSession session){
+		Map<String, String> loginResultMap = new HashMap<>();
+		String testerEmail = "routiner@gram.com";
+		int UID = userinfoService.getByEmail(testerEmail).getUID();
+		int NickID = userinfoService.getByEmail(testerEmail).getNickID();
+		String nickname = userNicknameService.getUserNicknameByUID(UID);
+		
+		session.setAttribute("UID", UID);
+		session.setAttribute("nickname", nickname);
+		session.setAttribute("NickID", NickID);
+		session.setAttribute("email", testerEmail);	
+		
+		loginResultMap.put("result", "success");
+		return loginResultMap;
 	}
 }

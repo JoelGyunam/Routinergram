@@ -15,6 +15,10 @@ public class UserinfoService {
 	@Autowired
 	private UserinfoRepository userinfoRepository;
 	
+	public Userinfo getByEmail(String email) {
+		return userinfoRepository.selectByEmail(email);
+	}
+	
 	public int updateNickIDbyUID(int NickID, int UID) {
 		Userinfo userinfo = new Userinfo();
 		userinfo.setUID(UID);

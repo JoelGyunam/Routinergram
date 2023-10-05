@@ -27,4 +27,6 @@ public interface UserinfoRepository {
 	public int deleteProfileImage(int UID);
 	
 	public int updateITRIDbyUID(Userinfo userinfo);
+	
+	public Userinfo selectByEmail(String email);
 }

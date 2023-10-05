@@ -46,6 +46,11 @@
 				<div class="font-weight-bold">루티너그램이 처음이신가요?</div>
 				<button id="regBtn" type="button" class="btn btn-primary btn-block text-white mt-3">5초만에 루티너그램 시작하기</button>
 			</div>
+			<hr>
+			<div class="container mt-5">
+				<div class="font-weight-bold">가입 전에 먼저 체험해 볼까요?</div>
+				<button id="testerBtn" type="button" class="btn btn-dark btn-block text-white mt-3">로그인 없이 둘러보기</button>
+			</div>
 		</div>
 	
 	</section>
@@ -157,9 +162,26 @@
 			
 			$("#regBtn").on("click",function(){
 				location.href="/reg";
-			})
+			});
 			
 			
+			
+			$("#testerBtn").on("click",function(){
+				$.ajax({
+					url:"/login/tester"
+					,type:"post"
+					,success:function(data){
+						if(data.result=="success"){
+							location.href="/main/feed"
+						} else{
+							alert("로그인 정보를 다시 확인해 주세요.");
+						}
+					}
+					,error:function(){
+						alert("로그인에 문제가 발생했어요.\n다시 시도해 주세요.");
+					}
+				})
+			});
 			
 		});
 	</script>
