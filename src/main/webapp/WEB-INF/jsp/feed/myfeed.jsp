@@ -19,11 +19,11 @@
 			<div class="d-flex justify-content-center p-3">
 				<div class="mx-1 col-6">
 					<div class="font-weight-bold text-center">나의 목표 루틴</div>
-					<div class = "rounded p-1 m-1 text-center text-white bg-success">독서</div>
+					<div class = "rounded p-1 m-1 text-center text-white bg-success">${userDetail.interestName }</div>
 				</div>
 				<div class="mx-1 col-6">
 					<div class="font-weight-bold text-center">루틴 점수</div>
-					<div class = "rounded p-1 m-1 text-center text-white bg-success">56</div>
+					<div class = "rounded p-1 m-1 text-center text-white bg-success">${userDetail.level }</div>
 				</div>
 			</div>
 			<div class="d-flex justify-content-center">
