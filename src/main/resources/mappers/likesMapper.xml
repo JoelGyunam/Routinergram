@@ -2,10 +2,10 @@
  <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.routinergram.likes.repository.LikesRepository">
+<mapper namespace="com.routinergram.Likes.repository.LikesRepository">
 
-	<insert id="insertLike" parameterType="com.routinergram.likes.domain.Likes" useGeneratedKeys="true" keyProperty="LKID">
-		INSERT INTO `likes` 
+	<insert id="insertLike" parameterType="com.routinergram.Likes.domain.Likes" useGeneratedKeys="true" keyProperty="LKID">
+		INSERT INTO `Likes` 
 				(
 				UID
 				,FID
@@ -23,22 +23,22 @@
 
 	<select id="sumLikeCountByFID" parameterType="int" resultType="integer">
 		SELECT SUM(likeCount)
-		FROM `likes`
+		FROM `Likes`
 		WHERE `FID` = #{FID};
 	</select>
 
-	<select id="selectLikesByUIDandFID" parameterType="com.routinergram.likes.domain.Likes" resultType="integer">
+	<select id="selectLikesByUIDandFID" parameterType="com.routinergram.Likes.domain.Likes" resultType="integer">
 		SELECT SUM(likeCount)
-		FROM `likes`
+		FROM `Likes`
 		WHERE UID = #{UID} AND FID = #{FID};
 	</select>
 	
 	<delete id="deleteLikesByFID" parameterType="int">
-		DELETE FROM `likes`
+		DELETE FROM `Likes`
 		WHERE FID = #{FID};
 	</delete>
 
-	<select id="selectLikeByLKID" parameterType="int" resultType="com.routinergram.likes.domain.Likes">
+	<select id="selectLikeByLKID" parameterType="int" resultType="com.routinergram.Likes.domain.Likes">
 		SELECT
 			`LKID`
 			,`UID`
@@ -47,7 +47,7 @@
 			,`likeCount`
 			,`createdAt`
 			,`updatedAt`
-		FROM `likes`
+		FROM `Likes`
 		WHERE `LKID` = #{LKID}
 	</select>
 

@@ -2,10 +2,10 @@
  <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.routinergram.reply.repository.ReplyRepository">
+<mapper namespace="com.routinergram.Reply.repository.ReplyRepository">
 
 	<insert id="insertReply" useGeneratedKeys="true" keyProperty="RPID">
-		INSERT INTO `reply`	(`replyText`,`FID`,`UID`)
+		INSERT INTO `Reply`	(`ReplyText`,`FID`,`UID`)
 		VALUE
 		(
 		#{replyText}
@@ -14,7 +14,7 @@
 		);
 	</insert>
 
-	<select id="selectReplyListByFID" parameterType="int" resultType="com.routinergram.reply.domain.Reply">
+	<select id="selectReplyListByFID" parameterType="int" resultType="com.routinergram.Reply.domain.Reply">
 		SELECT
 			RPID
 			,replyText
@@ -22,12 +22,12 @@
 			,UID
 			,createdAt
 			,updatedAt
-		FROM reply
+		FROM Reply
 		WHERE FID = #{FID}
 		ORDER BY createdAt DESC;
 	</select>
 	
-	<select id="selectReplyByRPID" parameterType="int" resultType="com.routinergram.reply.domain.Reply">
+	<select id="selectReplyByRPID" parameterType="int" resultType="com.routinergram.Reply.domain.Reply">
 		SELECT
 			RPID
 			,replyText
@@ -35,26 +35,26 @@
 			,UID
 			,createdAt
 			,updatedAt
-		FROM reply
+		FROM Reply
 		WHERE RPID = #{RPID}
 		ORDER BY createdAt DESC;
 	</select>
 	
-	<delete id="deleteReplyByRPID" parameterType="com.routinergram.reply.domain.Reply">
+	<delete id="deleteReplyByRPID" parameterType="com.routinergram.Reply.domain.Reply">
 		DELETE FROM 
-			reply 
+			`Reply` 
 		WHERE RPID = #{RPID} AND UID = #{UID};
 	</delete>
 
 	<delete id="deleteReplyByFID" parameterType="int">
 		DELETE FROM 
-			reply 
+			`Reply` 
 		WHERE FID = #{FID};
 	</delete>
 
-	<select id="replyCountByFID" parameterType="int" resultType="integer">
+	<select id="ReplyCountByFID" parameterType="int" resultType="integer">
 		SELECT count(1) 
-		FROM `reply`
+		FROM `Reply`
 		WHERE FID = #{FID};
 	</select>
 </mapper>

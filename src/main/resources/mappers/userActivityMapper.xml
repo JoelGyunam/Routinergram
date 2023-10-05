@@ -9,21 +9,21 @@
  	
  		SELECT
  			`activityUID`,`UID`,`uploadCount`,`replyCount`,`visitCount`,`level`,`createdAt`,`updatedAt`
- 		FROM `useractivity`
+ 		FROM `UserActivity`
  		WHERE `UID` = #{UID}
  	
  	</select>
  
  	<insert id="insertUserActivity" parameterType="int">
  	
- 		INSERT INTO `useractivity` (`UID`)
+ 		INSERT INTO `UserActivity` (`UID`)
 		VALUE (#{UID});
  	
  	</insert>
  
  	<update id="updateVisitCount" parameterType="int">
  	
- 		UPDATE `useractivity`
+ 		UPDATE `UserActivity`
 	 		SET 
 	 			`visitCount` = `visitCount` + 1
 	 			,`updatedAt` = now()
@@ -33,7 +33,7 @@
  	
  	<update id="updateUploadCount" parameterType="int">
  	
- 		UPDATE `useractivity`
+ 		UPDATE `UserActivity`
 	 		SET 
 	 			`uploadCount` = `uploadCount` + 1
 	 			,`updatedAt` = now()

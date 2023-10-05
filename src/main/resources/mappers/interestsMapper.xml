@@ -7,7 +7,7 @@
 	<select id="selectInterestnameByITRID" parameterType="int" resultType="String">
 		SELECT 
 			 `interestName`
-			 FROM `interests`
+			 FROM `Interests`
 			 WHERE `ITRID` = #{ITRID}
 	</select>
 
@@ -17,7 +17,7 @@
 			,`interestName`
 			,`createdAt`
 			,`updatedAt`
-		 FROM `interests`
+		 FROM `Interests`
 	</select>
 
 </mapper>

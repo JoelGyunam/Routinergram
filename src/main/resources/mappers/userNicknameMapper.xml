@@ -7,12 +7,12 @@
 
  	 <select id = "nicknameCount" parameterType="map" resultType="int">
  		SELECT COUNT(1) 
- 			FROM usernickname
+ 			FROM `UserNickname`
  			WHERE nickname = #{nickname}
  	</select>
  	
  	<insert id = "insertNickname" parameterType = "map" useGeneratedKeys="true" keyProperty="NickID">
- 		INSERT INTO `usernickname`
+ 		INSERT INTO `UserNickname`
  			(`nickname`)
  		VALUE(
  			#{nickname}
@@ -20,7 +20,7 @@
  	</insert>
  	
  	<update id = "updateNickname" parameterType = "map">
- 		UPDATE `usernickname`
+ 		UPDATE `UserNickname`
 	 		SET 
 	 			`UID` = #{UID}
 	 			,`updatedAt` = now()
@@ -29,13 +29,13 @@
  	
  	<select id="selectNicknameByNickID" parameterType="map" resultType="String">
  		SELECT `nickname`
- 		FROM `usernickname`
+ 		FROM `UserNickname`
  		WHERE NickID = #{NickID}
  	</select>
  	
  	<select id="selectNicknameByUID" parameterType="map" resultType="String">
  		SELECT `nickname`
- 		FROM `usernickname`
+ 		FROM `UserNickname`
  		WHERE UID = #{UID}
  		ORDER BY `NickID` DESC
  		LIMIT 1;
@@ -43,14 +43,14 @@
  	</select>
  	
  	<delete id="deleteNicknameByNickID" parameterType="int">
-	 	DELETE FROM `usernickname`
+	 	DELETE FROM `UserNickname`
 		WHERE `NickID` = #{NickID};
  	</delete>
  	
  	<select id="selectNicknameListByUID" parameterType="int" resultType="com.routinergram.user.domain.UserNickname">
  		SELECT 
  			`NickID`,`nickname`,`UID`,`createdAt`,`updatedAt`
- 		FROM `usernickname`
+ 		FROM `UserNickname`
  		WHERE `UID` = ${UID}
  		ORDER BY `NickID` DESC;
  	</select>
