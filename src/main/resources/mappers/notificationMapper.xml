@@ -13,13 +13,13 @@
 			,`seen`
 			,`createdAt`
 			,`updatedAt`
-		FROM `notification`
+		FROM `Notification`
 		WHERE `UID` = #{UID}
 		ORDER BY `notiID` DESC
 	</select>
 
 	<insert id="insertNotificationFor" parameterType="com.routinergram.notification.domain.Notification">
-		INSERT INTO `notification`
+		INSERT INTO `Notification`
 			(
 			`UID`
 			,`writerUID`
@@ -36,14 +36,14 @@
 	</insert>
 
 	<update id="updateSeen" parameterType="int">
-		UPDATE `notification`
+		UPDATE `Notification`
 		SET `seen` = 0
 		WHERE `UID` = #{UID}
 	</update>
 	
 	<select id="countUnseen" parameterType="int" resultType="int">
 		SELECT COUNT(1)
-		FROM `notification`
+		FROM `Notification`
 		WHERE
 			UID = #{UID} AND seen = '1'
 	</select>
