@@ -142,11 +142,11 @@
 						if(data.result=="success"){
 							location.reload();
 						} else{
-							alert("댓글 삭제에 실패했어요.");
+							alert("댓글 작성에 실패했어요.");
 						}
 					}
 					,error:function(){
-						alert("댓글 삭제 중 오류가 발생했어요.");
+						alert("댓글 작성 중 오류가 발생했어요.");
 					}
 				})
 			});
