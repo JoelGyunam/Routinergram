@@ -21,9 +21,9 @@
 		
 			<div id="filterBox">
 				<div id="radio-group" class="d-flex flex-wrap justify-content-center">
-					<label id="ITRisnonselect" class = "col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success">
+					<label id="ITRis0" class = "col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success">
 						전체보기
-						<input type="radio" name="interest" value="nonselect" class="d-none">
+						<input type="radio" name="interest" value="0" class="d-none">
 					</label>
 					<c:forEach var="interest" items="${interestList }">
 					<label id="ITRis${interest.ITRID }" class = "col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white">
@@ -34,7 +34,10 @@
 				</div>
 				<hr>
 			</div>
-			  <%@ include file="/WEB-INF/jsp/feed/feedUnit.jsp" %>
+			
+			<div id="feedAppendArea">
+				<%@ include file="/WEB-INF/jsp/feed/feedUnit.jsp" %>
+			</div>
 	
 			<div id="feedEnding" style="height:60px"></div>
 		</div>
@@ -59,9 +62,21 @@
 			$("#radio-group").on("change",function(){
 		        var interestRadioValue = $("input[type=radio][name=interest]:checked").val();
 		        var selectedITRBox = "#ITRis"+interestRadioValue;
-		        
 				$("#radio-group label").attr("class","col-3 small rounded p-1 m-1 text-center border border-success text-dark bg-white");
 				$(selectedITRBox).attr("class","col-3 small rounded p-1 m-1 text-center font-weight-bold text-white bg-success");
+				
+				$("#feedAppendArea").empty();
+				
+ 			$.ajax({
+					url:"/main/feed"
+					,type:"get"
+					,data:{
+						"ITRID":interestRadioValue
+					}
+ 				,success:function(data){
+ 					$("#feedAppendArea").append(data);
+ 				}
+				})
 				
 			});
 		});

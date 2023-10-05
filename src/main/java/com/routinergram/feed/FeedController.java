@@ -16,6 +16,7 @@ import com.routinergram.feed.domain.Feed;
 import com.routinergram.feed.service.FeedService;
 import com.routinergram.interests.domain.Interests;
 import com.routinergram.interests.service.InterestsService;
+import com.routinergram.user.service.UserDetailService;
 
 @Controller
 @RequestMapping("/main/feed")
@@ -25,6 +26,8 @@ public class FeedController {
 	private FeedService feedService;
 	@Autowired
 	private InterestsService interestsService;
+	@Autowired
+	private UserDetailService userDetailService;
 
 	
 	
@@ -35,19 +38,24 @@ public class FeedController {
 		
 		List<Feed> feedList = new ArrayList<>();
 		
-		if(ITRID==null) {
+		if(ITRID == null) {
 			feedList = feedService.listFeedsAll((int)session.getAttribute("UID"));
-		} else {
+		} else if (ITRID > 0){
 			feedList = feedService.listFeedsByITRID(ITRID, (int)session.getAttribute("UID"));
-		}
+		} else if(ITRID == 0) {
+			feedList = feedService.listFeedsAll((int)session.getAttribute("UID"));
+		};
 		
 		List<Interests> interestList = interestsService.getInterestList();
 		
 		model.addAttribute("feedList",feedList);
 		model.addAttribute("interestList",interestList);
 		
+		if(ITRID != null) {
+			return "feed/feedUnit";
+		} else 
 		return "feed/feed";
-	}
+	};
 	
 	@GetMapping("/myfeed")
 	public String myfeedView(HttpSession session, Model model) {
@@ -55,6 +63,8 @@ public class FeedController {
 		List<Feed> feedList = new ArrayList<>();
 
 		feedList = feedService.listFeedsByUID(UID);
+		
+		model.addAttribute("userDetail",userDetailService.getUserDetail(UID));
 		model.addAttribute("feedList",feedList);
 		
 		return "feed/myfeed";
