@@ -2,9 +2,9 @@
  <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.routinergram.Likes.repository.LikesRepository">
+<mapper namespace="com.routinergram.likes.repository.LikesRepository">
 
-	<insert id="insertLike" parameterType="com.routinergram.Likes.domain.Likes" useGeneratedKeys="true" keyProperty="LKID">
+	<insert id="insertLike" parameterType="com.routinergram.likes.domain.Likes" useGeneratedKeys="true" keyProperty="LKID">
 		INSERT INTO `Likes` 
 				(
 				UID
@@ -27,7 +27,7 @@
 		WHERE `FID` = #{FID};
 	</select>
 
-	<select id="selectLikesByUIDandFID" parameterType="com.routinergram.Likes.domain.Likes" resultType="integer">
+	<select id="selectLikesByUIDandFID" parameterType="com.routinergram.likes.domain.Likes" resultType="integer">
 		SELECT SUM(likeCount)
 		FROM `Likes`
 		WHERE UID = #{UID} AND FID = #{FID};
@@ -38,7 +38,7 @@
 		WHERE FID = #{FID};
 	</delete>
 
-	<select id="selectLikeByLKID" parameterType="int" resultType="com.routinergram.Likes.domain.Likes">
+	<select id="selectLikeByLKID" parameterType="int" resultType="com.routinergram.likes.domain.Likes">
 		SELECT
 			`LKID`
 			,`UID`
