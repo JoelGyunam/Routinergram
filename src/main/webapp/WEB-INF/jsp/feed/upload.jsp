@@ -56,6 +56,14 @@
 			
 			$("#fileInput").on("change",function(){
 				var $input = $(this);
+				
+				var maxFileSize = 5 * 1024 * 1024;
+				
+				if($input[0].files[0].size > maxFileSize){
+					alert("업로드 가능한 최대 이미지 크기는 5MB입니다.\n다른 이미지를 올려주세요.");
+					return;
+				}
+				
 				var reader = new FileReader();
 				reader.onload = function(){
 					$("#imagePlace").attr("src",reader.result);
@@ -69,17 +77,22 @@
 				} else{
 					$("#submitBtn").prop("disabled",true);
 				}
-			})
-			
+			});
 			
 			$("#submitBtn").on("click",function(){
 				
 				var text = $("#textInput").val();
 				var image = $("#fileInput")[0];
 				
-				var formData = new FormData();
-				formData.append("text",text);
-				formData.append("image",image.files[0]);
+				var maxFileSize = 5 * 1024 * 1024;
+				if(image.files[0].size > maxFileSize){
+					alert("업로드 가능한 최대 이미지 크기는 5MB입니다.\n다른 이미지를 올려주세요.");
+					return;
+				} else {
+					var formData = new FormData();
+					formData.append("text",text);
+					formData.append("image",image.files[0]);
+				};
 				
 				confirm("피드를 올릴까요?");
 				$.ajax({
