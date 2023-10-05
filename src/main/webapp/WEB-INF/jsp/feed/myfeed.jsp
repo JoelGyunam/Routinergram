@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/variable/woff2/SUITE-Variable.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body class="d-flex justify-content-center">
 
@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="d-flex justify-content-center p-3">
 				<div class="mx-1 col-6">
-					<div class="font-weight-bold text-center">나의 목표 루틴</div>
+					<div class="font-weight-bold text-center">목표 루틴</div>
 					<div class = "rounded p-1 m-1 text-center text-white bg-success">${userDetail.interestName }</div>
 				</div>
 				<div class="mx-1 col-6">

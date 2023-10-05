@@ -1,132 +1,266 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
-#wrap {
-	width:400px;
-	height: auto;
-	margin:auto;
-	font-family: SUITE Variable;
-	background: #ffffff;
-	position: relative;
-}
-
-header{
-	width:400px;
-	height: 57px;
-	position: relative;
-	color: white;
-	font-size: 22px;
-	font-family: SUITE Variable;
-	font-weight: 900;  
-	line-height: 24px;
-	letter-spacing: 2px;
-	word-wrap: break-word;
-	border-radius: 0px 0px 12px 12px;
-	background: #155724;
-	position: fixed;
-	margin-bottom: auto;
-	top: 0;
-	z-index: 100;
-}
-
-section{
-		margin-top: 64px;
-		margin-bottom: 50px;
-		min-height: calc(100vh - 150px);
-		height: fit-content;
+@media(max-width: 599px){
+	#wrap {
+		width:100%;
+		height: auto;
+		margin:auto;
+		font-family: SUITE Variable;
+		background: #ffffff;
+		overflow:auto;
+	}
+	
+	header{
+		width: 100%;
+		height: 57px;
 		position: relative;
+		color: white;
+		font-size: 22px;
+		font-family: SUITE Variable;
+		font-weight: 900;  
+		line-height: 24px;
+		letter-spacing: 2px;
+		word-wrap: break-word;
+		border-radius: 0px 0px 12px 12px;
+		background: #155724;
+		position: fixed;
+		margin-bottom: auto;
+		top: 0;
+		z-index: 100;
+	}
+	
+	section{
+			width: auto;
+			margin-top: 64px;
+			margin-bottom: 50px;
+			min-height: calc(100vh - 150px);
+			height: fit-content;
+			position: relative;
+	}
+	
+	select option[value="nonselect"] {
+		display: none;
+	}
+	
+	.btn-transparent{
+		background-color: transparent;
+	}
+	
+	#greetingBtn{
+		position: fixed;
+		bottom: 10px;
+		width: 360px;
+	}
+	
+	#replyarea{
+		border-radius: 12px 12px 0px 0px;
+		min-height: calc(100vh - 100px);
+		background: #155724;
+	}
+	
+	#replyWrite{
+		bottom:0;
+		position:relative;
+	
+	}
+	
+	#bottomNav{
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		border-top-left-radius: 25px;
+		border-top-right-radius: 25px;
+	}
+	
+	.bottomNavBtn{
+		width:33%;
+/*		display: flex;
+	  	flex-direction: column;
+	  	justify-content: space-around;
+	  	align-items: center;*/
+	}
+	
+	.box {
+	    width: 150px;
+	    height: 150px; 
+	    border-radius: 60px;
+	    overflow: hidden;
+	}
+	
+	.profile {
+	    width: 150px;
+	    height: 150px;
+	    object-fit: cover;
+	}
+	
+	.small-box {
+	    width: 30px;
+	    height: 30px; 
+	    border-radius: 60px;
+	    overflow: hidden;
+	}
+	
+	.small-profile {
+	    width: 30px;
+	    height: 30px;
+	    object-fit: cover;
+	}
+	
+	.bottomNavText{
+		text-align: center;
+		color: white; 
+		font-size: 12px; 
+		font-family: SUITE Variable; 
+		font-weight: 400; 
+		line-height: 15px; 
+		letter-spacing: 2px; 
+		word-wrap: break-word;
+		margin-bottom: 5px;
+	}
+	
+	.bottomNavImg{
+		margin-top: 8px;
+		height: 20px;
+		width: 20px;
+		justify-content: center;
+		align-items: center; 
+		display: inline-flex;
+	}
+	
+	footer{
+		bottom:0;
+	}
 }
 
-select option[value="nonselect"] {
-	display: none;
-}
-
-.btn-transparent{
-	background-color: transparent;
-}
-
-#greetingBtn{
-	position: fixed;
-	bottom: 10px;
-	width: 360px;
-}
-
-#replyarea{
-	border-radius: 12px 12px 0px 0px;
-	min-height: calc(100vh - 100px);
-	background: #155724;
-}
-
-#replyWrite{
-	bottom:0;
-	position:relative;
-
-}
-
-#bottomNav{
-	width: 400px;
-	position: fixed;
-	bottom: 0;
-	border-top-left-radius: 25px;
-	border-top-right-radius: 25px;
-}
-
-.bottomNavBtn{
-	width:132px;
-	display: flex;
-  	flex-direction: column;
-  	justify-content: center;
-  	align-items: center;
-
-}
-
-.box {
-    width: 150px;
-    height: 150px; 
-    border-radius: 60px;
-    overflow: hidden;
-}
-
-.profile {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-}
-
-.small-box {
-    width: 30px;
-    height: 30px; 
-    border-radius: 60px;
-    overflow: hidden;
-}
-
-.small-profile {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-}
-
-.bottomNavText{
-	text-align: center;
-	color: white; 
-	font-size: 12px; 
-	font-family: SUITE Variable; 
-	font-weight: 400; 
-	line-height: 15px; 
-	letter-spacing: 2px; 
-	word-wrap: break-word;
-	margin-bottom: 5px;
-}
-
-.bottomNavImg{
-	margin-top: 8px;
-	height: 20px;
-	width: 20px;
-	justify-content: center;
-	align-items: center; 
-	display: inline-flex;
-}
-
-footer{
-	bottom:0;
+@media(min-width:600px){
+	#wrap {
+		width:400px;
+		height: auto;
+		margin:auto;
+		font-family: SUITE Variable;
+		background: #ffffff;
+		position: relative;
+	}
+	
+	header{
+		width:400px;
+		height: 57px;
+		position: relative;
+		color: white;
+		font-size: 22px;
+		font-family: SUITE Variable;
+		font-weight: 900;  
+		line-height: 24px;
+		letter-spacing: 2px;
+		word-wrap: break-word;
+		border-radius: 0px 0px 12px 12px;
+		background: #155724;
+		position: fixed;
+		margin-bottom: auto;
+		top: 0;
+		z-index: 100;
+	}
+	
+	section{
+			margin-top: 64px;
+			margin-bottom: 50px;
+			min-height: calc(100vh - 150px);
+			height: fit-content;
+			position: relative;
+	}
+	
+	select option[value="nonselect"] {
+		display: none;
+	}
+	
+	.btn-transparent{
+		background-color: transparent;
+	}
+	
+	#greetingBtn{
+		position: fixed;
+		bottom: 10px;
+		width: 360px;
+	}
+	
+	#replyarea{
+		border-radius: 12px 12px 0px 0px;
+		min-height: calc(100vh - 100px);
+		background: #155724;
+	}
+	
+	#replyWrite{
+		bottom:0;
+		position:relative;
+	
+	}
+	
+	#bottomNav{
+		width: 400px;
+		position: fixed;
+		bottom: 0;
+		border-top-left-radius: 25px;
+		border-top-right-radius: 25px;
+	}
+	
+	.bottomNavBtn{
+		width:132px;
+		display: flex;
+	  	flex-direction: column;
+	  	justify-content: center;
+	  	align-items: center;
+	
+	}
+	
+	.box {
+	    width: 150px;
+	    height: 150px; 
+	    border-radius: 60px;
+	    overflow: hidden;
+	}
+	
+	.profile {
+	    width: 150px;
+	    height: 150px;
+	    object-fit: cover;
+	}
+	
+	.small-box {
+	    width: 30px;
+	    height: 30px; 
+	    border-radius: 60px;
+	    overflow: hidden;
+	}
+	
+	.small-profile {
+	    width: 30px;
+	    height: 30px;
+	    object-fit: cover;
+	}
+	
+	.bottomNavText{
+		text-align: center;
+		color: white; 
+		font-size: 12px; 
+		font-family: SUITE Variable; 
+		font-weight: 400; 
+		line-height: 15px; 
+		letter-spacing: 2px; 
+		word-wrap: break-word;
+		margin-bottom: 5px;
+	}
+	
+	.bottomNavImg{
+		margin-top: 8px;
+		height: 20px;
+		width: 20px;
+		justify-content: center;
+		align-items: center; 
+		display: inline-flex;
+	}
+	
+	footer{
+		bottom:0;
+	}
 }

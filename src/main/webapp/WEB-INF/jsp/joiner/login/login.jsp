@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/variable/woff2/SUITE-Variable.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
-	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
@@ -39,7 +39,7 @@
 					</div>
 					<button id="loginBtn" type="submit" class="btn btn-success btn-block text-white mt-3">로그인</button>
 				</form>
-				<div class="text-right small mt-2">비밀번호 찾기</div>
+				<div class="text-right small mt-2 d-none">비밀번호 찾기</div>
 			</div>
 			
 			<div class="container mt-5">

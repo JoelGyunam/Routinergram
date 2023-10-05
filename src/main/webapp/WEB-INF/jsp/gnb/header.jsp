@@ -3,7 +3,7 @@
 	<header class="bg-success d-flex justify-content-between align-items-center">
 		<div class="col-1 ml-3">
 		</div>
-		<div>루티너그램</div>
+		<div id="productTitle">루티너그램</div>
 		<button id="heartBtn" class="col-1 mr-3 btn btn-transparent" onclick="location.href=`/main/myinfo/notification`">
 			<h5><i id="heartIcon" class="bi bi-heart-fill text-white"></i></h5>
 		</button>
@@ -15,6 +15,11 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			$("#productTitle").on("click",function(){
+				location.href="/greeting";				
+			});
+			
 			$.ajax({
 				type:"post"
 				,url:"/rest/myinfo/notification/unseenCheck"
